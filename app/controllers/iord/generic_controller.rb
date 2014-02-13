@@ -6,7 +6,7 @@ class Iord::GenericController < ApplicationController
   alias :original_build_resource_info :build_resource_info
   def build_resource_info
     return original_build_resource_info if self.class.name != 'Iord::GenericController'
-    path = request.fullpath[1..-1].split('/')
+    path = request.path[1..-1].split('/')
     # if new or edit
     path.pop if path.last =~/^(new|edit)$/
     # if ID
@@ -25,6 +25,8 @@ class Iord::GenericController < ApplicationController
     @resource_name = resource_class.humanize
     @resource_name_u = resource_class.underscore
     @resource_class = (namespace + resource_class).constantize
+
+    @action_path = path.join('_')
 
     @resource_path = path[0..-2].map { |i| i.to_sym }
   end

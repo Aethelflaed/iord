@@ -10,6 +10,7 @@ module Iord
       helper_method :resource_name_u
       helper_method :collection_name
       helper_method :resource_path
+      helper_method :action_path
     end
 
     def resource_class
@@ -37,6 +38,11 @@ module Iord
       @resource_path
     end
 
+    def action_path
+      build_resource_info unless @action_path
+      @action_path
+    end
+
     def build_resource_info
       return if @resource_class
       controller_name = self.class.name[0..-11]
@@ -54,6 +60,13 @@ module Iord
       @resource_name = resource_class.humanize
       @resource_name_u = resource_class.underscore
       @resource_class = (namespace + resource_class).constantize
+
+      path = request.path[1..-1].split('/')
+      # if new or edit
+      path.pop if path.last =~/^(new|edit)$/
+      # if ID
+      path.pop if path.last =~ /^[a-f0-9]+$/
+      @action_path = path.join('_')
 
       @resource_path = Array.new
       if controller_path.rindex('/')
