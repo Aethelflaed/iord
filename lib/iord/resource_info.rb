@@ -52,7 +52,7 @@ module Iord
         path = controller_path[0..controller_path.rindex('/')-1]
         @resource_path = path.split('/').map { |i| i.to_sym }
       else
-        @resource_path = String.new
+        @resource_path = Array.new
       end
     end
 
