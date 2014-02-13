@@ -4,14 +4,16 @@ module Iord
   module Crud
     extend ActiveSupport::Concern
 
-    module ClassMethods
-      def crud_response_formats
-        @@crud_response_formats ||= []
+    included do
+      cattr_accessor :crud_response_formats, instance_accesssor: false do
+        []
       end
+    end
 
+    module ClassMethods
       def crud_response_format
         raise ArgumentError, "block expected" unless block_given?
-        @@crud_response_formats = crud_response_formats << Proc.new
+        crud_response_formats = crud_response_formats << Proc.new
       end
     end
 
