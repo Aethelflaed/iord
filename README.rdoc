@@ -1,3 +1,5 @@
-= Iord
+= Information Oriented Representation of Data
+
+Easily create customizable CRUD based controllers with Information Oriented Representation of Data.
 
 This project rocks and uses MIT-LICENSE.
