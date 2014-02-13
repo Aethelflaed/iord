@@ -12,11 +12,11 @@ module Iord
     end
 
     def resource_url_method
-      @resource_url_method ||= controller_path.singularize.underscore + '_url'
+      @resource_url_method ||= action_path.singularize + '_url'
     end
 
     def collection_url_method
-      @collection_url_method ||= (controller_path.underscore + '_url').to_sym
+      @collection_url_method ||= (action_path + '_url').to_sym
     end
 
     def resource_url(resource = nil)
