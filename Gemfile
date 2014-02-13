@@ -12,3 +12,10 @@ gemspec
 
 # To use debugger
 # gem 'debugger'
+
+gem 'mongoid', github: 'mongoid/mongoid'
+
+gem 'better_errors'
+gem 'binding_of_caller'
+gem 'pry-rails'
+gem 'pry-nav'
