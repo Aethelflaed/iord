@@ -7,6 +7,10 @@ class Iord::GenericController < ApplicationController
   def build_resource_info
     return original_build_resource_info if self.class.name != 'Iord::GenericController'
     path = request.fullpath[1..-1].split('/')
+    # if new or edit
+    path.pop if path.last =~/^(new|edit)$/
+    # if ID
+    path.pop if path.last =~ /^[a-f0-9]+$/
 
     namespace = String.new
     if self.class.resource_namespace_value.is_a? Module
