@@ -12,6 +12,7 @@ PATH
   remote: .
   specs:
     iord (0.0.1)
+      nested_form (~> 0.3.2)
       rails (~> 4.0.2)
 
 GEM
@@ -67,6 +68,7 @@ GEM
       connection_pool (~> 1.2)
       optionable (~> 0.2.0)
     multi_json (1.8.4)
+    nested_form (0.3.2)
     optionable (0.2.0)
     origin (2.1.0)
     polyglot (0.3.3)
@@ -122,5 +124,6 @@ DEPENDENCIES
   binding_of_caller
   iord!
   mongoid!
+  nested_form (~> 0.3.2)
   pry-nav
   pry-rails
