@@ -4,7 +4,7 @@ module Admin
   class UsersController < ApplicationController
     include Iord::Controller
 
-    resource_namespace Admin
+    self.resource_namespace = Admin
   end
 end
 
