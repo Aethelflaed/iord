@@ -1,0 +1,19 @@
+- _attrs = @resource.persisted? ? edit_attrs : new_attrs
+
+= nested_form_for [*(resource_path + [@resource])] do |f|
+  - if @resource.errors.any?
+    #error_explanation
+      %h3= "#{pluralize(@resource.errors.count, "error")} prohibited this character from being saved:"
+      %ul
+        - @resource.errors.full_messages.each do |msg|
+          %li= msg
+
+  %fieldset
+    %legend= @form_title
+    .inputs
+      - _attrs.each do |attr|
+        = field_form f, attr
+
+    .actions
+      = f.button :submit, class: 'btn btn-default'
+
