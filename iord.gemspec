@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["test/**/*"]
 
-  s.add_dependency "rails", "~> 4.0.2"
+  s.add_dependency "rails", "~> 4.0"
 
   s.add_development_dependency 'nested_form', '~> 0.3.2'
   s.add_development_dependency 'factory_girl_rails'

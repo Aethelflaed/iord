@@ -13,7 +13,7 @@ PATH
   specs:
     iord (0.0.1)
       nested_form (~> 0.3.2)
-      rails (~> 4.0.2)
+      rails (~> 4.0)
 
 GEM
   remote: https://rubygems.org/
