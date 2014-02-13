@@ -6,6 +6,7 @@ require "rails/test_help"
 require 'database_cleaner'
 require 'faker'
 require 'factory_girl'
+require 'nested_form/view_helper'
 
 DatabaseCleaner.strategy = :truncation
 DatabaseCleaner.clean
@@ -25,3 +26,9 @@ end
 class ActiveSupport::TestCase
   include FactoryGirl::Syntax::Methods
 end
+
+# fixes NestedForm not avilable in test
+class ActionView::Base
+  include NestedForm::ViewHelper
+end
+
