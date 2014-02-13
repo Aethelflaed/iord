@@ -4,6 +4,7 @@ ENV["RAILS_ENV"] = "test"
 require File.expand_path("../dummy/config/environment.rb",  __FILE__)
 require "rails/test_help"
 require 'database_cleaner'
+require 'faker'
 require 'factory_girl'
 
 DatabaseCleaner.strategy = :truncation
