@@ -7,6 +7,7 @@ module Iord
     included do
       helper_method :resource_class
       helper_method :resource_name
+      helper_method :resource_name_u
       helper_method :collection_name
       helper_method :resource_path
     end
@@ -19,6 +20,11 @@ module Iord
     def resource_name
       build_resource_info unless @resource_name
       @resource_name
+    end
+
+    def resource_name_u
+      build_resource_info unless @resource_name_u
+      @resource_name_u
     end
 
     def collection_name
@@ -46,6 +52,7 @@ module Iord
       @collection_name = class_name.humanize
       resource_class = class_name.singularize
       @resource_name = resource_class.humanize
+      @resource_name_u = resource_class.underscore
       @resource_class = (namespace + resource_class).constantize
 
       @resource_path = Array.new

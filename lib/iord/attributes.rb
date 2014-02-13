@@ -40,7 +40,7 @@ module Iord
     protected
     def resource_params
       _attrs = @resource.nil? ? new_attrs : edit_attrs
-      params.require(resource_class.name.underscore.to_sym).permit *construct_permit_params_array(_attrs)
+      params.require(resource_name_u.to_sym).permit *construct_permit_params_array(_attrs)
     end
 
     def construct_permit_params_array(array)
