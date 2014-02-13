@@ -9,6 +9,8 @@ require 'factory_girl'
 DatabaseCleaner.strategy = :truncation
 DatabaseCleaner.clean
 
+FactoryGirl.find_definitions
+
 Rails.backtrace_cleaner.remove_silencers!
 
 # Load support files
