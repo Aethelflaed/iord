@@ -48,11 +48,10 @@ module Iord
       @resource_name = resource_class.humanize
       @resource_class = (namespace + resource_class).constantize
 
+      @resource_path = Array.new
       if controller_path.rindex('/')
         path = controller_path[0..controller_path.rindex('/')-1]
         @resource_path = path.split('/').map { |i| i.to_sym }
-      else
-        @resource_path = Array.new
       end
     end
 
