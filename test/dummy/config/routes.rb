@@ -1,4 +1,19 @@
+require 'iord'
+
 Dummy::Application.routes.draw do
+  resources :clients, controller: 'iord/generic'
+  resources :products
+  resources :users
+
+  namespace :admin, module: nil do
+    resources :clients, controller: 'iord/generic'
+  end
+
+  namespace :admin do
+    resources :users
+    resources :products
+  end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
