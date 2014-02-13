@@ -11,6 +11,11 @@ module Iord
       helper_method :collection_name
       helper_method :resource_path
       helper_method :action_path
+
+      cattr_accessor :resource_namespace, instance_accesssor: false do
+        false
+      end
+      self.singleton_class.send(:alias_method, :set_resource_namespace, :resource_namespace=)
     end
 
     def resource_class
@@ -48,9 +53,9 @@ module Iord
       controller_name = self.class.name[0..-11]
 
       namespace = String.new
-      if self.class.resource_namespace_value.is_a? Module
-        namespace = self.class.resource_namespace_value.to_s + '::'
-      elsif self.class.resource_namespace_value
+      if self.class.resource_namespace.is_a? Module
+        namespace = self.class.resource_namespace.to_s + '::'
+      elsif self.class.resource_namespace
         namespace = controller_name[0..controller_name.rindex(':')] if controller_name.rindex(':')
       end
 
@@ -72,16 +77,6 @@ module Iord
       if controller_path.rindex('/')
         path = controller_path[0..controller_path.rindex('/')-1]
         @resource_path = path.split('/').map { |i| i.to_sym }
-      end
-    end
-
-    module ClassMethods
-      def resource_namespace_value
-        @@resource_namespace ||= false
-      end
-
-      def resource_namespace(namespace = true)
-        @@resource_namespace = namespace
       end
     end
   end

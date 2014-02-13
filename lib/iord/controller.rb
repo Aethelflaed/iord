@@ -20,22 +20,22 @@ module Iord
       append_view_path Iord::Resolver.new
 
       before_action :set_resource
+
+      cattr_accessor :resource_based_actions, instance_accesssor: false do
+        %i(show edit update destroy)
+      end
     end
 
     module ClassMethods
-      def resource_based_actions
-        @@resource_based_actions ||= %i(show edit update destroy)
-      end
-
       def resource_actions(*actions)
         actions = *actions if actions.size == 1 and actions[0].is_a? Array
-        @@resource_based_actions = resource_based_actions + actions
+        resource_based_actions = resource_based_actions + actions
       end
       alias :resource_action :resource_actions
 
       def resource_actions!(*actions)
         actions = *actions if actions.size == 1 and actions[0].is_a? Array
-        @@resource_based_actions = actions
+        resource_based_actions = actions
       end
     end
 

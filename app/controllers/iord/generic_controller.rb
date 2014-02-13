@@ -13,9 +13,9 @@ class Iord::GenericController < ApplicationController
     path.pop if path.last =~ /^[a-f0-9]+$/
 
     namespace = String.new
-    if self.class.resource_namespace_value.is_a? Module
-      namespace = self.class.resource_namespace_value.to_s + '::'
-    elsif self.class.resource_namespace_value
+    if self.class.resource_namespace.is_a? Module
+      namespace = self.class.resource_namespace.to_s + '::'
+    elsif self.class.resource_namespace
       namespace = path[0..-2].join('/').camelize + '::'
     end
 
