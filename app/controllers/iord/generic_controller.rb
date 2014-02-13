@@ -23,6 +23,7 @@ class Iord::GenericController < ApplicationController
     @collection_name = class_name.humanize
     resource_class = class_name.singularize
     @resource_name = resource_class.humanize
+    @resource_name_u = resource_class.underscore
     @resource_class = (namespace + resource_class).constantize
 
     @resource_path = path[0..-2].map { |i| i.to_sym }
