@@ -12,11 +12,11 @@ module Iord
     end
 
     def resource_url_method
-      @resource_url_method ||= self.class.name.underscore[0..-12].gsub('/', '_').singularize + '_url'
+      @resource_url_method ||= resource_class.name.underscore + '_url'
     end
 
     def collection_url_method
-      @collection_url_method ||= (self.class.name.underscore[0..-12].gsub('/', '_') + '_url').to_sym
+      @collection_url_method ||= (resource_class.name.pluralize.underscore + '_url').to_sym
     end
 
     def resource_url(resource = nil)
