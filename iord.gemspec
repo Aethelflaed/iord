@@ -16,11 +16,11 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["test/**/*"]
 
-  s.add_dependency "rails", "~> 4.0"
+  s.add_dependency 'rails', '~> 4.0'
+  s.add_dependency 'jquery-rails', '~> 3.1.0'
+  s.add_dependency 'nested_form', '~> 0.3.2'
 
-  s.add_development_dependency 'nested_form', '~> 0.3.2'
   s.add_development_dependency 'factory_girl_rails'
   s.add_development_dependency 'database_cleaner'
   s.add_development_dependency 'faker'
-  s.add_runtime_dependency 'nested_form', '~> 0.3.2'
 end
