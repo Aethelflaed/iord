@@ -13,7 +13,7 @@ module Iord
       helper_method :fields_default_image_hash
     end
 
-    def field_name(attr)
+    def field_name(attr, opts = {})
       return "id"           if attr == :_id
       # default, simply humanize name
       return attr           unless attr.is_a? Hash
@@ -22,17 +22,17 @@ module Iord
       return attr[:array]   if attr.has_key? :array
       return attr[:value]   if attr.has_key? :value
       return attr[:link]    if attr.has_key? :link
-      return field_name attr.values[0]  if attr.values[0].is_a? Hash
+      return field_name(attr.values[0], opts) if attr.values[0].is_a? Hash
 
       attr.keys[0]
     end
 
-    def field_label(f, attr)
+    def field_label(f, attr, opts = {})
       return f.label *attr[:label] if attr.has_key? :label
       f.label attr[:attr]
     end
 
-    def field_form(f, attr)
+    def field_form(f, attr, opts = {})
       if attr.is_a? Symbol
         return %Q[<div class="input">#{f.label(attr)}#{f.text_field(attr)}</div>].html_safe
       elsif attr.is_a? Array
@@ -42,7 +42,7 @@ module Iord
       elsif not attr.is_a? Hash
         raise ArgumentError, "Unrecognized attr: #{attr}"
       elsif attr.has_key? :fields
-        return field_form_object(f, attr)
+        return field_form_object(f, attr, opts)
       end
 
       case attr[:field]
@@ -57,21 +57,19 @@ module Iord
 
       return field if attr.has_key? :hidden
 
-      label = field_label f, attr
+      label = field_label(f, attr, opts)
       %Q[<div class="input">#{label}#{field}</div>].html_safe
     end
 
-    def field_form_object(f, attr)
+    def field_form_object(f, attr, opts = {})
       html = String.new
-      relation = f.object.class.relations[attr[:attr].to_s][:relation]
-      multiple_items = (
-        relation == Mongoid::Relations::Referenced::Many ||
-        relation == Mongoid::Relations::Embedded::Many)
+      multiple_items = attr[:attr].to_s.pluralize == attr[:attr].to_s
+
+      attr_name = attr[:attr].to_s.singularize.humanize
 
       html << f.fields_for(attr[:attr]) do |ff|
-        content = "<fieldset><legend>#{attr[:attr].to_s.singularize.humanize}</legend>"
+        content = "<fieldset><legend>#{attr_name}</legend>"
         attr[:fields].each do |attr|
-          # Do not display _id or reorder_field field if new record
           unless ff.object.new_record? and
             attr.is_a? Hash and
             attr.has_key? :not_new_record
@@ -80,13 +78,13 @@ module Iord
         end
         if multiple_items
           content << "  "
-          content << ff.link_to_remove("Remove this #{attr[:attr].to_s.singularize.humanize}", class: 'btn btn-default')
+          content << ff.link_to_remove(t('iord.buttons.remove', model: attr_name), class: 'btn btn-default')
         end
         content << "</fieldset>"
         content.html_safe
-      end
+      end.to_s
       if multiple_items
-        html << f.link_to_add("Add a #{attr[:attr].to_s.singularize.humanize}", attr[:attr], class: 'btn btn-default')
+        html << f.link_to_add(t('iord.buttons.add', model: attr_name), attr[:attr], class: 'btn btn-default')
       end
       html << "<br>"
       html.html_safe
@@ -120,54 +118,32 @@ module Iord
     end
 
     def field_value_link(object, url, label, hash, opts = {})
-      if opts.has_key? :json
-        return label
-      end
       hash ||= fields_default_link_hash
       view_context.link_to label, url, hash
     end
 
     def field_value_image(object, url, hash, opts = {})
-      if opts.has_key? :json
-        return {image: url}
-      end
       hash ||= fields_default_image_hash
       view_context.image_tag url, hash
     end
 
     def field_value_object(object, attr, opts = {})
-      json = {}
       dl_class = attr[:object_class].to_s
       html = %Q[<dl class="#{dl_class}">]
       attr[:attrs].each do |at|
-        if opts.has_key? :json
-          json[field_name(at)] = field_value(object, at, opts)
-        else
-          html << "<dt>#{field_name(at).to_s.humanize}</dt><dd>#{field_value(object, at)}</dd>"
-        end
+        html << "<dt>#{field_name(at, opts).to_s.humanize}</dt><dd>#{field_value(object, at)}</dd>"
       end
       html << "</dl>"
-      if opts.has_key? :json
-        return json
-      end
       html.html_safe
     end
 
     def field_value_array(array, attr, opts = {})
-      json = []
       ul_class = attr[:array_class].to_s
       html = "<ul class=\"#{ul_class}\">"
       array.each do |e|
-        if opts.has_key? :json
-          json << field_value_object(e, attr[:attr], opts)
-        else
-          html << "<li>#{field_value_object e, attr[:attr]}</li>"
-        end
+        html << "<li>#{field_value_object e, attr[:attr]}</li>"
       end
       html << "</ul>"
-      if opts.has_key? :json
-        return json
-      end
       html.html_safe
     end
 

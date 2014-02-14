@@ -1,0 +1,27 @@
+en:
+  iord:
+    buttons:
+      submit: 'Submit'
+      back: 'Back'
+      show: 'Show'
+      edit: 'Edit'
+      destroy: 'Destroy'
+      create: 'Create'
+      remove: 'Remove this %{model}'
+      add: 'Add a %{model}'
+    titles:
+      list: 'Listing %{models}'
+      new: 'New %{model}'
+      edit: 'Edit %{model}'
+      show: 'Details for %{model}'
+    alert:
+      destroy: 'Are you sure?'
+    flash:
+      create: '%{model} has been successfully created!'
+      update: '%{model} has been successfully updated!'
+      destroy: '%{model} has been successfully destroyed!'
+    errors:
+      error: 'error'
+      explanation: '%{errors} prohibited this character from being saved:'
+          
+

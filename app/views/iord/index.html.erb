@@ -1,0 +1,36 @@
+<h1><%= t('iord.titles.list', models: collection_name) %></h1>
+<%= link_to t('iord.buttons.create'), new_resource_url, fields_default_link_hash %>
+<br/>
+<br/>
+<table>
+  <thead>
+    <tr>
+      <% index_attrs.each do |attr| %>
+        <th>
+          <%= field_name(attr).to_s.humanize %>
+        </th>
+      <% end %>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @collection.each do |resource| %>
+      <tr>
+        <% index_attrs.each do |attr| %>
+          <td>
+            <%= field_value(resource, attr) %>
+          </td>
+        <% end %>
+        <td>
+          <%= link_to t('iord.buttons.show'), resource_url(resource), fields_default_link_hash %>
+          &nbsp;
+          <%= link_to t('iord.buttons.edit'), edit_resource_url(resource), fields_default_link_hash %>
+          &nbsp;
+          <%= link_to t('iord.buttons.destroy'), resource_url(resource),
+            fields_default_link_hash.merge(data: {method: 'delete', confirm: t('iord.alert.destroy')}) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+

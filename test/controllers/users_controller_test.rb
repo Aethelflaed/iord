@@ -26,7 +26,9 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test "should create" do
-    post :create, user: {name: 'Hello'}
+    assert_difference('Admin::User.count') do
+      post :create, user: {name: 'Hello'}
+    end
     assert_response 302
   end
 
@@ -36,7 +38,9 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test "should destroy" do
-    delete :destroy, id: @user
+    assert_difference('Admin::User.count', -1) do
+      delete :destroy, id: @user
+    end
     assert_redirected_to users_path
   end
 end
