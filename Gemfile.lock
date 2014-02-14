@@ -138,6 +138,8 @@ DEPENDENCIES
   factory_girl_rails
   faker
   iord!
+  jquery-rails (~> 3.1.0)
   mongoid!
+  nested_form (~> 0.3.2)
   pry-nav
   pry-rails
