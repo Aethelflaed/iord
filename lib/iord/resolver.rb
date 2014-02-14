@@ -11,7 +11,7 @@ module Iord
 
   class GenericResolver < ::ActionView::FileSystemResolver
     def initialize(path, prefix)
-      super path
+      super File.expand_path("#{Rails.root}/app/views/#{path}")
       @prefix = prefix
     end
 

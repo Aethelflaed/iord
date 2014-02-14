@@ -26,7 +26,7 @@ class Iord::GenericController < ApplicationController
     @resource_name_u = resource_class.underscore
     @resource_class = (namespace + resource_class).constantize
 
-    prepend_view_path Iord::GenericResolver.new("app/views/#{path[0..-2].join('/')}", path.last)
+    prepend_view_path Iord::GenericResolver.new(path[0..-2].join('/'), path.last)
     @action_path = path.join('_')
 
     @resource_path = path[0..-2].map { |i| i.to_sym }
