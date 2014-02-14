@@ -4,5 +4,7 @@ class Product
   field :name
   field :reference
   field :quantity
+
+  belongs_to :category
 end
 

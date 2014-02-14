@@ -3,6 +3,7 @@ require 'iord'
 Dummy::Application.routes.draw do
   resources :clients, controller: 'iord/generic'
   resources :products
+  resources :categories
   resources :users
 
   namespace :admin, module: nil do
