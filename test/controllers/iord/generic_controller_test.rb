@@ -33,7 +33,9 @@ module Iord
 
     test "should create" do
       @request.path = "/clients"
-      post :create, client: {firstname: 'Hello'}
+      assert_difference('Client.count') do
+        post :create, client: {firstname: 'Hello'}
+      end
       assert_response 302
     end
 
@@ -45,7 +47,9 @@ module Iord
 
     test "should destroy" do
       @request.path = "/clients/#{@client.id}"
-      delete :destroy, id: @client
+      assert_difference('Client.count', -1) do
+        delete :destroy, id: @client
+      end
       assert_redirected_to clients_path
     end
 
@@ -76,7 +80,9 @@ module Iord
 
     test "admin should create" do
       @request.path = "/admin/clients"
-      post :create, client: {firstname: 'Hello'}
+      assert_difference('Client.count') do
+        post :create, client: {firstname: 'Hello'}
+      end
       assert_response 302
     end
 
@@ -88,7 +94,9 @@ module Iord
 
     test "admin should destroy" do
       @request.path = "/admin/clients/#{@client.id}"
-      delete :destroy, id: @client
+      assert_difference('Client.count', -1) do
+        delete :destroy, id: @client
+      end
       assert_redirected_to admin_clients_path
     end
   end

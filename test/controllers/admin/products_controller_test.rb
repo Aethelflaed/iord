@@ -27,7 +27,9 @@ module Admin
     end
 
     test "should create" do
-      post :create, product: {name: 'Hello'}
+      assert_difference('Product.count') do
+        post :create, product: {name: 'Hello'}
+      end
       assert_response 302
     end
 
@@ -37,7 +39,9 @@ module Admin
     end
 
     test "should destroy" do
-      delete :destroy, id: @product
+      assert_difference('Product.count', -1) do
+        delete :destroy, id: @product
+      end
       assert_redirected_to admin_products_path
     end
   end
