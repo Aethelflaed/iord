@@ -16,7 +16,15 @@ class ProductsController < ApplicationController
   def form_attrs
     %i(name reference) + [
       [:number_field, :quantity],
-      [:select, :category_id, Category.all.collect{|c| [c.name, c.id]}]
+      {
+        attr: :category,
+        fields: %i(name) + [{
+            attr: :_id,
+            hidden: :true,
+            field: [:hidden_field, :_id],
+            not_new_record: true
+        }]
+      }
     ]
   end
 end

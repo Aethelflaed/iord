@@ -3,6 +3,7 @@
 * Prepending a view\_paths when using Iord::GenericController.
   This permits to define a route like `resources :clients, controller: 'iord/generic'`
   and still customize views under `app/views/clients`.
+* Remove usage of Mongoid constants to detect relation. Now based on attribute name
 
 ## 0.0.1
 * Initial release

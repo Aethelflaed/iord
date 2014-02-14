@@ -63,10 +63,7 @@ module Iord
 
     def field_form_object(f, attr)
       html = String.new
-      relation = f.object.class.relations[attr[:attr].to_s][:relation]
-      multiple_items = (
-        relation == Mongoid::Relations::Referenced::Many ||
-        relation == Mongoid::Relations::Embedded::Many)
+      multiple_items = attr[:attr].to_s.pluralize == attr[:attr].to_s
 
       html << f.fields_for(attr[:attr]) do |ff|
         content = "<fieldset><legend>#{attr[:attr].to_s.singularize.humanize}</legend>"
@@ -83,7 +80,7 @@ module Iord
         end
         content << "</fieldset>"
         content.html_safe
-      end
+      end.to_s
       if multiple_items
         html << f.link_to_add("Add a #{attr[:attr].to_s.singularize.humanize}", attr[:attr], class: 'btn btn-default')
       end
