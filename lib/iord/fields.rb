@@ -65,8 +65,10 @@ module Iord
       html = String.new
       multiple_items = attr[:attr].to_s.pluralize == attr[:attr].to_s
 
+      attr_name = attr[:attr].to_s.singularize.humanize
+
       html << f.fields_for(attr[:attr]) do |ff|
-        content = "<fieldset><legend>#{attr[:attr].to_s.singularize.humanize}</legend>"
+        content = "<fieldset><legend>#{attr_name}</legend>"
         attr[:fields].each do |attr|
           unless ff.object.new_record? and
             attr.is_a? Hash and
@@ -76,13 +78,13 @@ module Iord
         end
         if multiple_items
           content << "  "
-          content << ff.link_to_remove("Remove this #{attr[:attr].to_s.singularize.humanize}", class: 'btn btn-default')
+          content << ff.link_to_remove(t('iord.buttons.remove', model: attr_name), class: 'btn btn-default')
         end
         content << "</fieldset>"
         content.html_safe
       end.to_s
       if multiple_items
-        html << f.link_to_add("Add a #{attr[:attr].to_s.singularize.humanize}", attr[:attr], class: 'btn btn-default')
+        html << f.link_to_add(t('iord.buttons.add', model: attr_name), attr[:attr], class: 'btn btn-default')
       end
       html << "<br>"
       html.html_safe

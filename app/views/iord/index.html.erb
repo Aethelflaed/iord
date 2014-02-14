@@ -1,5 +1,5 @@
-<h1><%= "Listing #{collection_name.humanize}" %></h1>
-<%= link_to 'Create', new_resource_url, fields_default_link_hash %>
+<h1><%= t('iord.titles.list', models: collection_name) %></h1>
+<%= link_to t('iord.buttons.create'), new_resource_url, fields_default_link_hash %>
 <br/>
 <br/>
 <table>
@@ -22,11 +22,12 @@
           </td>
         <% end %>
         <td>
-          <%= link_to 'Show', resource_url(resource), fields_default_link_hash %>
+          <%= link_to t('iord.buttons.show'), resource_url(resource), fields_default_link_hash %>
           &nbsp;
-          <%= link_to 'Edit', edit_resource_url(resource), fields_default_link_hash %>
+          <%= link_to t('iord.buttons.edit'), edit_resource_url(resource), fields_default_link_hash %>
           &nbsp;
-          <%= link_to 'Destroy', resource_url(resource), fields_default_link_hash.merge(data: {method: 'delete', confirm: 'Are you sure?'}) %>
+          <%= link_to t('iord.buttons.destroy'), resource_url(resource),
+            fields_default_link_hash.merge(data: {method: 'delete', confirm: t('iord.alert.destroy')}) %>
         </td>
       </tr>
     <% end %>
