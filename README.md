@@ -176,7 +176,7 @@ Example:
 def form_attrs
   [
     :name,
-    [:select_from, :category_id, @Category.all.collect{|c| [c.name, c.id]}]
+    [:select, :category_id, Category.all.collect{|c| [c.name, c.id]}]
   ]
 end
 ```
@@ -195,6 +195,10 @@ The value used depends on the first keys encountered given this order:
 
   It will display either one or many objects depending on the kind of relation. When displaying
   many objects, it will also add the `Add a ...` and `Remove this ...` links.
+
+  When displaying many objects, you can add the key `:not\_new\_record` to prevent it
+  from being displayed on new objects (usefull for `id` for example).
+
 * `:field`, which type is check:
   - when Array, uses `f.public\_send `*attr[:field]`.
     

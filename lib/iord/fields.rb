@@ -71,7 +71,6 @@ module Iord
       html << f.fields_for(attr[:attr]) do |ff|
         content = "<fieldset><legend>#{attr[:attr].to_s.singularize.humanize}</legend>"
         attr[:fields].each do |attr|
-          # Do not display _id or reorder_field field if new record
           unless ff.object.new_record? and
             attr.is_a? Hash and
             attr.has_key? :not_new_record
