@@ -1,0 +1,7 @@
+Description:
+    Scaffolds an entire resource, from model and migration to controller and
+    views, along with a full test suite. The controller includes
+    Iord::Controller and defines most useful attributes method already
+    filled with provided attributes.
+    The controller also defines the namespace resource according to the
+    provided model.
