@@ -67,7 +67,8 @@ module Iord
     end
 
     def update
-      if @resource.update_attributes! resource_params
+      @resource.update_attributes resource_params
+      if @resource.save
         redirect_to resource_url, notice: 'Resource was successfully updated.'
       else
         render action: 'edit'

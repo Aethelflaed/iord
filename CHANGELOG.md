@@ -7,6 +7,7 @@
 * Removed partial json handling. Will move this code to another gem someday
 * Added i18n
 * Added generators
+* Fixed update CRUD method raising on validation error
 
 ## 0.0.1
 * Initial release
