@@ -77,6 +77,21 @@ Views will be loaded from the corresponding views directory and default to IORD 
 For namespaced routes, you don't have to specify `module: nil` as for the quick method,
 and the model used will still be `::Product`.
 
+#### Generators
+
+IORD is shipped with generators to automatically create controllers:
+
+```ruby
+rails generate iord:controller product
+```
+Creates a controller including `Iord::Controller` with default attribute methods.
+
+```ruby
+rails generate iord:scaffold customer firstname lastname
+```
+Scaffolds the model and the controller, which will have specialized attribute methods
+based on the attributes specified.
+
 ## Documentation
 
 This documentation provides customization informations which are mainly available if you
