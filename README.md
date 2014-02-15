@@ -4,7 +4,7 @@ IORD is a runtime scaffolding system based on an easy way to represent data.
 
 ## Description
 
-IORD stands for _Information Oriented Representation of Data_.
+IORD stands for *Information Oriented Representation of Data*.
 
 It can be used to easily create customizable CRUD based controllers and scaffolds views automatically.
 IORD also handles strong parameters verification based on the given data.
@@ -32,8 +32,8 @@ resources :products, controller: 'iord/generic'
 
 This will automatically handles the CRUD methods and display the data from the `Product`.
 
-The attributes displayed will be the model's attributes except `deleted\_at` on all views
-and `\_id`, `created\_at`, `updated\_at` on index, new and edit.
+The attributes displayed will be the model's attributes except `deleted_at` on all views
+and `_id`, `created_at`, `updated_at` on index, new and edit.
 
 You can still customize the views by creating the corresponding file in `app/views/products/`.
 
@@ -60,7 +60,7 @@ You can also create your own route pointing to your controller, for example:
 # config/routes.rb
 resources :products
 
-# app/controllers/products\_controller.rb
+# app/controllers/products_controller.rb
 require 'iord/controller'
 
 class ProductsController < ApplicationController
@@ -105,8 +105,8 @@ The default and basic attributes methods return and array of symbols correspondi
 model's attributes.
 
 For more complex cases, there are two kinds of data expected:
-* display-oriented attributes for `show\_attrs` and `index\_attrs`.
-* form-oriented attributes for `new\_attrs` and `edit\_attrs`.
+* display-oriented attributes for `show_attrs` and `index_attrs`.
+* form-oriented attributes for `new_attrs` and `edit_attrs`.
 
 Both complex cases attributes are fully recursive, meaning you can have nested objects.
 
@@ -157,7 +157,7 @@ the first keys encountered given this order:
   The name of the attribute will be a humanized version of the first key.
 
   In other words, in the products controller, to following code displays the
-  value `category.to\_s` labelled `Category`:
+  value `category.to_s` labelled `Category`:
 
 		```ruby
 		  {category: :to_s}
@@ -167,9 +167,9 @@ the first keys encountered given this order:
 
 Form oriented attributes are either symbols, arrays or hashes.
 
-Symbols are displayed using `f.text\_field` for the input, and `f.label` for the label.
+Symbols are displayed using `f.text_field` for the input, and `f.label` for the label.
 
-Arrays are displayed using `f.public\_send \*attr` for the input, and `f.label attr[1]` for the label.
+Arrays are displayed using `f.public_send *attr` for the input, and `f.label attr[1]` for the label.
 
 Example:
 ```ruby
@@ -196,11 +196,11 @@ The value used depends on the first keys encountered given this order:
   It will display either one or many objects depending on the kind of relation. When displaying
   many objects, it will also add the `Add a ...` and `Remove this ...` links.
 
-  When displaying many objects, you can add the key `:not\_new\_record` to prevent it
+  When displaying many objects, you can add the key `:not_new_record` to prevent it
   from being displayed on new objects (usefull for `id` for example).
 
 * `:field`, which type is check:
-  - when Array, uses `f.public\_send `*attr[:field]`.
+  - when Array, uses `f.public_send `*attr[:field]`.
     
 	This is quite similar to directly giving an Array, but permits to change the label.
 
@@ -222,7 +222,7 @@ such as index.
 You can add a resource-based action using the following class methods:
 
 ```ruby
-# app/controllers/products\_controller.rb
+# app/controllers/products_controller.rb
 require 'iord/controller'
 
 class ProductsController < ApplicationController
@@ -255,7 +255,7 @@ edit_resource_url(resource = nil)
 You can set the model's namespace using the following class methods:
 
 ```ruby
-# app/controllers/products\_controller.rb
+# app/controllers/products_controller.rb
 require 'iord/controller'
 
 class ProductsController < ApplicationController
@@ -272,19 +272,19 @@ The model loaded will now be `Subsidiary::Product`.
 
 You can query information on the resource using the following controller helper methods:
 
-* `resource\_class`, complete model class constant
-* `resource\_name`, humanized version of the model class name
-* `resource\_name\_u`, underscore version of the model class name
-* `collection\_name`, humanized version of the collection name (plural of `resource\_name`)
-* `resource\_path`, array of the modules as Symbol in which the model is nested
-* `action\_path`, path used to access the controller, used by url helpers.
+* `resource_class`, complete model class constant
+* `resource_name`, humanized version of the model class name
+* `resource_name_u`, underscore version of the model class name
+* `collection_name`, humanized version of the collection name (plural of `resource_name`)
+* `resource_path`, array of the modules as Symbol in which the model is nested
+* `action_path`, path used to access the controller, used by url helpers.
 
 ### Add a response format
 
 You can add a response format with the following class method:
 
 ```ruby
-# app/controllers/products\_controller.rb
+# app/controllers/products_controller.rb
 require 'iord/controller'
 
 class ProductsController < ApplicationController
