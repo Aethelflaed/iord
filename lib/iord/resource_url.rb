@@ -32,7 +32,7 @@ module Iord
     end
 
     def edit_resource_url(resource = nil)
-      @edit_resource_url ||= self.public_send "edit_#{resource_url_method}".to_sym, (resource || @resource)
+      self.public_send "edit_#{resource_url_method}".to_sym, (resource || @resource)
     end
   end
 end

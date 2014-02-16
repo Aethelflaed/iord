@@ -1,3 +1,6 @@
+## 0.0.3
+* Fixed edit_resource_url returning always the same value
+
 ## 0.0.2
 * Updated README with some information on the project.
 * Prepending a `view_paths` when using Iord::GenericController.
