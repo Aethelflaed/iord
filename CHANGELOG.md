@@ -1,5 +1,6 @@
 ## 0.0.3
 * Fixed edit_resource_url returning always the same value
+* Added Iord::HtmlHelper accessible via iordh to generate html
 
 ## 0.0.2
 * Updated README with some information on the project.

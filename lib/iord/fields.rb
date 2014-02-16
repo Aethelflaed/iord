@@ -1,4 +1,5 @@
 require 'active_support/concern'
+require 'iord/html_helper'
 
 module Iord
   module Fields
@@ -11,6 +12,12 @@ module Iord
 
       helper_method :fields_default_link_hash
       helper_method :fields_default_image_hash
+
+      helper_method :iordh
+    end
+
+    def iordh
+      @iordh ||= ::Iord::HtmlHelper.new(view_context)
     end
 
     def field_name(attr, opts = {})
@@ -34,17 +41,22 @@ module Iord
 
     def field_form(f, attr, opts = {})
       if attr.is_a? Symbol
-        return %Q[<div class="input">#{f.label(attr)}#{f.text_field(attr)}</div>].html_safe
+        return iordh.input(f.label(attr), f.text_field(attr), f.object.errors.full_messages_for(attr))
       elsif attr.is_a? Array
-        field = f.public_send *attr
         label = f.label attr[1]
-        return %Q[<div class="input">#{label}#{field}</div>].html_safe
+        field = f.public_send *attr
+        errors = f.object.errors.full_messages_for(attr[1])
+        return iordh.input(label, field, errors)
       elsif not attr.is_a? Hash
         raise ArgumentError, "Unrecognized attr: #{attr}"
       elsif attr.has_key? :fields
         return field_form_object(f, attr, opts)
+      else
+        field_form_hash(f, attr, opts)
       end
+    end
 
+    def field_form_hash(f, attr, opts = {})
       case attr[:field]
       when Array
         field = f.public_send    *attr[:field]
@@ -58,36 +70,33 @@ module Iord
       return field if attr.has_key? :hidden
 
       label = field_label(f, attr, opts)
-      %Q[<div class="input">#{label}#{field}</div>].html_safe
+      errors = f.object.errors.full_messages_for(attr[:attr])
+      iordh.input(label, field, errors)
     end
 
     def field_form_object(f, attr, opts = {})
-      html = String.new
       multiple_items = attr[:attr].to_s.pluralize == attr[:attr].to_s
 
       attr_name = attr[:attr].to_s.singularize.humanize
 
-      html << f.fields_for(attr[:attr]) do |ff|
-        content = "<fieldset><legend>#{attr_name}</legend>"
-        attr[:fields].each do |attr|
-          unless ff.object.new_record? and
-            attr.is_a? Hash and
-            attr.has_key? :not_new_record
-            content << "  " + field_form(ff, attr)
+      predicate = ->(form, attr) do
+        !(multiple_items and
+          form.object.new_record? and
+          attr.is_a? Hash and
+          attr.has_key? :not_new_record)
+      end
+
+      html = f.fields_for(attr[:attr]) do |ff|
+        iordh.fieldset(attr_name, attr[:fields], ff, predicate) do
+          if multiple_items
+            iordh.link_to_remove(ff, attr_name)
           end
         end
-        if multiple_items
-          content << "  "
-          content << ff.link_to_remove(t('iord.buttons.remove', model: attr_name), class: 'btn btn-default')
-        end
-        content << "</fieldset>"
-        content.html_safe
-      end.to_s
-      if multiple_items
-        html << f.link_to_add(t('iord.buttons.add', model: attr_name), attr[:attr], class: 'btn btn-default')
       end
-      html << "<br>"
-      html.html_safe
+      if multiple_items
+        html += iordh.link_to_add(f, attr_name, attr[:attr])
+      end
+      html.nil? ? String.new : html.html_safe
     end
     
     def field_value(resource, attr, opts = {})

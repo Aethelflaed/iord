@@ -1,32 +1,16 @@
-<% _attrs = @resource.persisted? ? edit_attrs : new_attrs %>
-<% _url = @resource.persisted? ? resource_url(@resource) : collection_url %>
+<% _attrs = @resource.persisted? ? edit_attrs : new_attrs -%>
+<% _url = @resource.persisted? ? resource_url(@resource) : collection_url -%>
 <%= nested_form_for([*(resource_path + [@resource])], as: resource_name_u, url: _url) do |f| %>
-  <% if @resource.errors.any? %>
+  <% if @resource.errors.any? -%>
     <div id="error_explanation">
-      <h3>
-        <%= t('iord.errors.explanation', errors: pluralize(@resource.errors.count, t('iord.errors.error'))) %>
-      </h3>
+      <h3><%= t('iord.errors.explanation', errors: pluralize(@resource.errors.count, t('iord.errors.error'))) %></h3>
       <ul>
-        <% @resource.errors.full_messages.each do |msg| %>
-          <li>
-          <%= msg %>
-          </li>
-        <% end %>
+        <% @resource.errors.full_messages.each do |msg| -%>
+          <li><%= msg %></li>
+        <% end -%>
       </ul>
     </div>
   <% end %>
-  <fieldset>
-    <legend>
-      <%= @form_title %>
-    </legend>
-    <div class="inputs">
-      <% _attrs.each do |attr| %>
-        <%= field_form f, attr %>
-      <% end %>
-    </div>
-    <div class="actions">
-      <%= f.button nil, class: 'btn btn-default' %>
-    </div>
-  </fieldset>
-<% end %>
+  <%= iordh.fieldset(@form_title, _attrs, f) { iordh.submit(f) } %>
+<% end -%>
 
