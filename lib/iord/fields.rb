@@ -115,42 +115,12 @@ module Iord
           attr[:format].call(resource, attr[:value])
         end
       elsif attr.has_key? :image
-        field_value_image resource, resource.public_send(*attr[:image]), attr[:params], opts
+        iordh.image_tag resource.public_send(*attr[:image]), attr[:params]
       elsif attr.has_key? :link
-        field_value_link resource, attr[:url], attr[:label], attr[:params], opts
+        iordh.link_to attr[:label], attr[:url], attr[:params]
       else
         field_value resource.public_send(attr.keys[0]), attr.values[0], opts
       end
-    end
-
-    def field_value_link(object, url, label, hash, opts = {})
-      hash ||= fields_default_link_hash
-      view_context.link_to label, url, hash
-    end
-
-    def field_value_image(object, url, hash, opts = {})
-      hash ||= fields_default_image_hash
-      view_context.image_tag url, hash
-    end
-
-    def field_value_object(object, attr, opts = {})
-      dl_class = attr[:object_class].to_s
-      html = %Q[<dl class="#{dl_class}">]
-      attr[:attrs].each do |at|
-        html << "<dt>#{field_name(at, opts).to_s.humanize}</dt><dd>#{field_value(object, at)}</dd>"
-      end
-      html << "</dl>"
-      html.html_safe
-    end
-
-    def field_value_array(array, attr, opts = {})
-      ul_class = attr[:array_class].to_s
-      html = "<ul class=\"#{ul_class}\">"
-      array.each do |e|
-        html << "<li>#{field_value_object e, attr[:attr]}</li>"
-      end
-      html << "</ul>"
-      html.html_safe
     end
   end
 end

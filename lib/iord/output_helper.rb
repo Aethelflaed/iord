@@ -78,6 +78,14 @@ module Iord
                            data: {method: 'delete', confirm: v.t('iord.alert.destroy')},
                            class: 'btn btn-default')
     end
+
+    def link_to(label, url, hash)
+      v.link_to(label, url, hash)
+    end
+
+    def image(url, hash)
+      v.image_tag(url, hash)
+    end
   end
 end
 
