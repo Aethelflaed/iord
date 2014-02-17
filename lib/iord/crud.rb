@@ -59,31 +59,50 @@ module Iord
     end
 
     def create!
-      if @resource.save
-        redirect_to resource_url, notice: t('iord.flash.create', model: resource_name)
-      else
-        render action: 'new'
+      respond_to do |format|
+        if @resource.save
+          flash[:notice] = t('iord.flash.create.notice', model: resource_name)
+          format.html { redirect_to resource_url }
+          formats(format, created: true)
+        else
+          format.html { render action: 'new' }
+          formats(format, created: false)
+        end
       end
     end
 
     def update
       @resource.update_attributes resource_params
-      if @resource.save
-        redirect_to resource_url, notice: t('iord.flash.update', model: resource_name)
-      else
-        render action: 'edit'
+      respond_to do |format|
+        if @resource.save
+          flash[:notice] = t('iord.flash.update.notice', model: resource_name)
+          format.html { redirect_to resource_url }
+          formats(format, updated: true)
+        else
+          format.html { render action: 'edit' }
+          formats(format, updated: false)
+        end
       end
     end
 
     def destroy
-      @resource.destroy
-      redirect_to collection_url, notice: t('iord.flash.destroy', model: resource_name)
+      respond_to do |format|
+        if @resource.destroy
+          flash[:notice] = t('iord.flash.destroy.notice', model: resource_name)
+          format.html { redirect_to collection_url }
+          formats(format, deleted: true)
+        else
+          flash[:alert] = t('iord.flash.destroy.alert', model: resource_name)
+          format.html { redirect_to collection_url }
+          formats(format, deleted: false)
+        end
+      end
     end
 
     private
-    def formats(format)
+    def formats(format, hash = {})
       self.class.crud_response_formats.each do |callback|
-        callback.call self, format, params[:action].to_sym
+        callback.call(self, format, params[:action].to_sym, hash)
       end
     end
   end

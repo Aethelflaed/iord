@@ -17,9 +17,13 @@ en:
     alert:
       destroy: 'Are you sure?'
     flash:
-      create: '%{model} has been successfully created!'
-      update: '%{model} has been successfully updated!'
-      destroy: '%{model} has been successfully destroyed!'
+      create:
+        notice: '%{model} has been successfully created!'
+      update:
+        notice: '%{model} has been successfully updated!'
+      destroy:
+        notice: '%{model} has been successfully destroyed!'
+        alert: '%{model} failed to be destroyed!'
     errors:
       error: 'error'
       explanation: '%{errors} prohibited this character from being saved.'
