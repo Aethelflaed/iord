@@ -60,7 +60,7 @@ module Iord
 
     def create!
       if @resource.save
-        redirect_to resource_url, notice: 'Resource was successfully created.'
+        redirect_to resource_url, notice: t('iord.flash.create', model: resource_name)
       else
         render action: 'new'
       end
@@ -69,7 +69,7 @@ module Iord
     def update
       @resource.update_attributes resource_params
       if @resource.save
-        redirect_to resource_url, notice: 'Resource was successfully updated.'
+        redirect_to resource_url, notice: t('iord.flash.update', model: resource_name)
       else
         render action: 'edit'
       end
@@ -77,7 +77,7 @@ module Iord
 
     def destroy
       @resource.destroy
-      redirect_to collection_url, notice: 'Resource was successfully destroyed.'
+      redirect_to collection_url, notice: t('iord.flash.destroy', model: resource_name)
     end
 
     private
