@@ -5,6 +5,9 @@ class Category
 
   has_many :products
 
-  accepts_nested_attributes_for :products
+  validates_presence_of :name
+  validates_associated :products
+
+  accepts_nested_attributes_for :products, allow_destroy: true
 end
 
