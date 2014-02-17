@@ -1,6 +1,6 @@
 <% @form_title = t('iord.titles.edit', model: resource_name) %>
 <%= render 'form' %>
-<%= link_to t('iord.buttons.show'), resource_url, fields_default_link_hash %>
+<%= iordh.link_to_show %>
 &nbsp;
-<%= link_to t('iord.buttons.back'), collection_url, fields_default_link_hash %>
+<%= iordh.link_to_collection %>
 

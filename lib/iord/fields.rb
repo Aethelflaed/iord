@@ -1,5 +1,5 @@
 require 'active_support/concern'
-require 'iord/html_helper'
+require 'iord/output_helper'
 
 module Iord
   module Fields
@@ -10,14 +10,11 @@ module Iord
       helper_method :field_form
       helper_method :field_value
 
-      helper_method :fields_default_link_hash
-      helper_method :fields_default_image_hash
-
       helper_method :iordh
     end
 
     def iordh
-      @iordh ||= ::Iord::HtmlHelper.new(view_context)
+      @iordh ||= ::Iord::OutputHelper.new(view_context)
     end
 
     def field_name(attr, opts = {})
@@ -108,9 +105,9 @@ module Iord
 
       # complex value with Hash
       if attr.has_key? :array
-        field_value_array resource.public_send(attr[:array]), attr, opts
+        iordh.display_array(resource.public_send(attr[:array]), attr[:attr][:attrs])
       elsif attr.has_key? :object
-        field_value_object resource.public_send(attr[:object]), attr, opts
+        iordh.display(resource.public_send(attr[:object]), attr[:attrs])
       elsif attr.has_key? :value
         if resource.respond_to? attr[:value]
           attr[:format].call(resource.public_send(attr[:value]))
@@ -154,14 +151,6 @@ module Iord
       end
       html << "</ul>"
       html.html_safe
-    end
-
-    def fields_default_link_hash
-      {:class => 'btn btn-default'}
-    end
-
-    def fields_default_image_hash
-      {}
     end
   end
 end

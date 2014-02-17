@@ -1,5 +1,5 @@
-<h1><%= "Listing Admin #{collection_name.humanize}" %></h1>
-<%= link_to 'Create', new_resource_url, fields_default_link_hash %>
+<h1>Listing Admin Clients</h1>
+<%= iordh.link_to_create %>
 <br/>
 <br/>
 <table>
@@ -22,11 +22,11 @@
           </td>
         <% end %>
         <td>
-          <%= link_to 'Show', resource_url(resource), fields_default_link_hash %>
+          <%= iordh.link_to_show(resource) %>
           &nbsp;
-          <%= link_to 'Edit', edit_resource_url(resource), fields_default_link_hash %>
+          <%= iordh.link_to_edit(resource) %>
           &nbsp;
-          <%= link_to 'Destroy', resource_url(resource), fields_default_link_hash.merge(data: {method: 'delete', confirm: 'Are you sure?'}) %>
+          <%= iordh.link_to_destroy(resource) %>
         </td>
       </tr>
     <% end %>

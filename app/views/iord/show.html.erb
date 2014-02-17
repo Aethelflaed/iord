@@ -1,15 +1,6 @@
 <h1><%= t('iord.titles.show', model: resource_name) %></h1>
-<dl>
-  <% show_attrs.each do |attr| %>
-    <dt>
-      <%= field_name(attr).to_s.humanize %>
-    </dt>
-    <dd>
-      <%= field_value @resource, attr %>
-    </dd>
-  <% end %>
-</dl>
-<%= link_to t('iord.buttons.edit'), edit_resource_url, fields_default_link_hash %>
+<%= iordh.display(@resource, show_attrs) %>
+<%= iordh.link_to_edit %>
 &nbsp;
-<%= link_to t('iord.buttons.back'), collection_url, fields_default_link_hash %>
+<%= iordh.link_to_collection %>
 

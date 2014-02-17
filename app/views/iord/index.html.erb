@@ -1,5 +1,5 @@
 <h1><%= t('iord.titles.list', models: collection_name) %></h1>
-<%= link_to t('iord.buttons.create'), new_resource_url, fields_default_link_hash %>
+<%= iordh.link_to_create %>
 <br/>
 <br/>
 <table>
@@ -22,12 +22,11 @@
           </td>
         <% end %>
         <td>
-          <%= link_to t('iord.buttons.show'), resource_url(resource), fields_default_link_hash %>
+          <%= iordh.link_to_show(resource) %>
           &nbsp;
-          <%= link_to t('iord.buttons.edit'), edit_resource_url(resource), fields_default_link_hash %>
+          <%= iordh.link_to_edit(resource) %>
           &nbsp;
-          <%= link_to t('iord.buttons.destroy'), resource_url(resource),
-            fields_default_link_hash.merge(data: {method: 'delete', confirm: t('iord.alert.destroy')}) %>
+          <%= iordh.link_to_destroy(resource) %>
         </td>
       </tr>
     <% end %>
