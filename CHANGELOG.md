@@ -1,3 +1,9 @@
+## 0.0.4
+* Fixed error when adding a response format
+* Completed the deletation to crud_response_format
+* i18n flash
+* Changed error display
+
 ## 0.0.3
 * Fixed edit_resource_url returning always the same value
 * Added Iord::HtmlHelper accessible via iordh to generate html
