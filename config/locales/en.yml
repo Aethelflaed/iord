@@ -22,6 +22,6 @@ en:
       destroy: '%{model} has been successfully destroyed!'
     errors:
       error: 'error'
-      explanation: '%{errors} prohibited this character from being saved:'
+      explanation: '%{errors} prohibited this character from being saved.'
           
 

@@ -4,11 +4,6 @@
   <% if @resource.errors.any? -%>
     <div id="error_explanation">
       <h3><%= t('iord.errors.explanation', errors: pluralize(@resource.errors.count, t('iord.errors.error'))) %></h3>
-      <ul>
-        <% @resource.errors.full_messages.each do |msg| -%>
-          <li><%= msg %></li>
-        <% end -%>
-      </ul>
     </div>
   <% end %>
   <%= iordh.fieldset(@form_title, _attrs, f) { iordh.submit(f) } %>
