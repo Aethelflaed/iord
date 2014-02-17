@@ -13,7 +13,7 @@ module Iord
     module ClassMethods
       def crud_response_format
         raise ArgumentError, "block expected" unless block_given?
-        crud_response_formats = crud_response_formats << Proc.new
+        self.crud_response_formats = self.crud_response_formats << Proc.new
       end
     end
 
