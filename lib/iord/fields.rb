@@ -17,7 +17,7 @@ module Iord
       @iordh ||= ::Iord::OutputHelper.new(view_context)
     end
 
-    def field_name(attr, opts = {})
+    def field_name(attr)
       return "id"           if attr == :_id
       # default, simply humanize name
       return attr           unless attr.is_a? Hash
@@ -26,17 +26,17 @@ module Iord
       return attr[:array]   if attr.has_key? :array
       return attr[:value]   if attr.has_key? :value
       return attr[:link]    if attr.has_key? :link
-      return field_name(attr.values[0], opts) if attr.values[0].is_a? Hash
+      return field_name(attr.values[0]) if attr.values[0].is_a? Hash
 
       attr.keys[0]
     end
 
-    def field_label(f, attr, opts = {})
+    def field_label(f, attr)
       return f.label *attr[:label] if attr.has_key? :label
       f.label attr[:attr]
     end
 
-    def field_form(f, attr, opts = {})
+    def field_form(f, attr)
       if attr.is_a? Symbol
         return iordh.input(f.label(attr), f.text_field(attr), f.object.errors.full_messages_for(attr))
       elsif attr.is_a? Array
@@ -47,13 +47,13 @@ module Iord
       elsif not attr.is_a? Hash
         raise ArgumentError, "Unrecognized attr: #{attr}"
       elsif attr.has_key? :fields
-        return field_form_object(f, attr, opts)
+        return field_form_object(f, attr)
       else
-        field_form_hash(f, attr, opts)
+        field_form_hash(f, attr)
       end
     end
 
-    def field_form_hash(f, attr, opts = {})
+    def field_form_hash(f, attr)
       case attr[:field]
       when Array
         field = f.public_send    *attr[:field]
@@ -66,12 +66,12 @@ module Iord
 
       return field if attr.has_key? :hidden
 
-      label = field_label(f, attr, opts)
+      label = field_label(f, attr)
       errors = f.object.errors.full_messages_for(attr[:attr])
       iordh.input(label, field, errors)
     end
 
-    def field_form_object(f, attr, opts = {})
+    def field_form_object(f, attr)
       multiple_items = attr[:attr].to_s.pluralize == attr[:attr].to_s
 
       attr_name = attr[:attr].to_s.singularize.humanize
@@ -96,7 +96,7 @@ module Iord
       html.nil? ? String.new : html.html_safe
     end
     
-    def field_value(resource, attr, opts = {})
+    def field_value(resource, attr)
       # default value for nil
       return '' if resource.nil?
 
@@ -119,7 +119,7 @@ module Iord
       elsif attr.has_key? :link
         iordh.link_to attr[:label], attr[:url], attr[:params]
       else
-        field_value resource.public_send(attr.keys[0]), attr.values[0], opts
+        field_value(resource.public_send(attr.keys[0]), attr.values[0])
       end
     end
   end
