@@ -44,7 +44,10 @@ module Iord
     end
 
     def json_destroy(hash)
-      {status: hash[:destroyed] ? :ok : :unprocessable_entity}.merge json_index(hash)
+      {
+        json: {status: hash[:destroyed] ? "ok" : "error"},
+        status: hash[:destroyed] ? :ok : :unprocessable_entity
+      }
     end
   end
 end
