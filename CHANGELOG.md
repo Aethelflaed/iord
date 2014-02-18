@@ -1,6 +1,7 @@
 ## 0.1.0
 * Added JSON support, can be enabled by including Iord::Json module.
 * Fixed field name not humanized
+* Fixed resource_actions methods
 
 ## 0.0.5
 * Added id as permitted attribute by default
