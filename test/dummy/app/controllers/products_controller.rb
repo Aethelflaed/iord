@@ -1,7 +1,9 @@
 require 'iord/controller'
+require 'iord/json'
 
 class ProductsController < ApplicationController
   include Iord::Controller
+  include Iord::Json
 
   def index_attrs
     %i(name reference quantity)

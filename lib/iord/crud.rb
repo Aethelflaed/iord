@@ -90,11 +90,11 @@ module Iord
         if @resource.destroy
           flash[:notice] = t('iord.flash.destroy.notice', model: resource_name)
           format.html { redirect_to collection_url }
-          formats(format, deleted: true)
+          formats(format, destroyed: true)
         else
           flash[:alert] = t('iord.flash.destroy.alert', model: resource_name)
           format.html { redirect_to collection_url }
-          formats(format, deleted: false)
+          formats(format, destroyed: false)
         end
       end
     end
