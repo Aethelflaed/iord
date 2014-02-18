@@ -6,7 +6,7 @@ IORD is a runtime scaffolding system based on an easy way to represent data.
 
 IORD stands for *Information Oriented Representation of Data*.
 
-It can be used to easily create customizable CRUD based controllers and scaffolds views automatically.
+It can be used to easily create customizable CRUD based controllers and scaffold views automatically.
 IORD also handles strong parameters verification based on the given data.
 
 ## Installation
@@ -30,7 +30,7 @@ The easiest way to use IORD is to define a route with the `iord/generic` control
 resources :products, controller: 'iord/generic'
 ```
 
-This will automatically handles the CRUD methods and display the data from the `Product`.
+This will automatically handle the CRUD methods and display the data from the `Product`.
 
 The attributes displayed will be the model's attributes except `deleted_at` on all views
 and `_id`, `created_at`, `updated_at` on index, new and edit.
@@ -72,14 +72,14 @@ You can then override the actions, change the displayed attributes, ...
 
 Views will be loaded from the corresponding views directory and default to IORD views.
 
-#### Namespaced resources
+#### Namespaced routes
 
 For namespaced routes, you don't have to specify `module: nil` as for the quick method,
 and the model used will still be `::Product`.
 
 #### Generators
 
-IORD is shipped with generators to automatically create controllers:
+IORD ships with generators to automatically create controllers:
 
 ```ruby
 rails generate iord:controller product
@@ -90,16 +90,16 @@ Creates a controller including `Iord::Controller` with default attribute methods
 rails generate iord:scaffold customer firstname lastname
 ```
 Scaffolds the model and the controller, which will have specialized attribute methods
-based on the attributes specified.
+based on the specified attributes.
 
 ## Documentation
 
-This documentation provides customization informations which are mainly available if you
+This documentation provides customization information which are mainly available if you
 use your own controller.
 
 ### Attributes
 
-IORD defines a lot of helper method to retrieve which attributes to display:
+IORD defines a lot of helper methods to retrieve the attributes to display:
 
 ```ruby
 show_attrs      # used for `show` action
@@ -116,7 +116,7 @@ attrs           # defaults to `show_attrs` - %i(_id created_at updated_at)
 
 IORD's attributes are used to generate the views and the parameters requirements / permissions.
 
-The default and basic attributes methods return and array of symbols corresponding directly to the
+The default and basic attributes methods return and array of symbols directly matching the
 model's attributes.
 
 For more complex cases, there are two kinds of data expected:
@@ -125,14 +125,14 @@ For more complex cases, there are two kinds of data expected:
 
 Both complex cases attributes are fully recursive, meaning you can have nested objects.
 
-#### Display oriented attributes
+#### Display-oriented attributes
 
-Display oriented attributes are either symbols or hashes.
+Display-oriented attributes are either symbols or hashes.
 
 Symbols are directly sent to the resource and the corresponding value is used. The name displayed for
 the attribute will be a humanized version of itself.
 
-Hashes permits more complex structures based on the presence of a specific key. The value used depends on
+Hashes permit more complex structures based on the presence of a specific key. The value used depends on
 the first keys encountered given this order:
 
 * `:array` will display an array of attributes, typically an has_many relation.
@@ -143,10 +143,10 @@ the first keys encountered given this order:
   The name of the attribute will be a humanized version of the value of `:array`
 
 * `:object` expects the hash to also have the `:attrs` key mapped to an array of
-  display oriented attributes.
+  display-oriented attributes.
 
   It will use the same logic as the action but will display the values of the object
-  it get by calling the value of `:object` on the resource.
+  it gets by calling the value of `:object` on the resource.
 
   The name of the attribute will be a humanized version of the value of `:object`
 
@@ -171,16 +171,20 @@ the first keys encountered given this order:
 
   The name of the attribute will be a humanized version of the first key.
 
-  In other words, in the products controller, to following code displays the
+  In other words, in the products controller, the following code displays the
   value `category.to_s` labelled `Category`:
 
-		```ruby
-		  {category: :to_s}
-		```
+  ```ruby
+  {category: :to_s}
+  ```
+		
+  Having `{category: :to_s}` will return the value of `@resource.category.to_s`.    
+  Another example would be `{category: {description: :to_html}}` which will call 
+  `@resource.category.description.to_html`
 
-#### Form oriented attributes
+#### Form-oriented attributes
 
-Form oriented attributes are either symbols, arrays or hashes.
+Form-oriented attributes are either symbols, arrays or hashes.
 
 Symbols are displayed using `f.text_field` for the input, and `f.label` for the label.
 
@@ -197,16 +201,16 @@ end
 ```
 This will display a form with a text field labelled *Name* and a select labelled `Category`.
 
-Hashes permits more complex structures based on the presence of a specific key.
+Hashes permit more complex structures based on the presence of a specific key.
 The label will have either the value of the `:attr` key humanized, or the value of the `:label` key,
-if present. Lastly, if the array has the key `:hidden`, then no label is displayed.
+if present. Lastly, if the array has the `:hidden` key, then no label is displayed.
 
 The value used depends on the first keys encountered given this order:
 
 * `:fields` will trigger a nested form (using the NestedForm gem), for the object referenced
   by the attribute mapped by `:attr`.
 
-  The `:fields` is mapped to an array of form oriented attributes.
+  The `:fields` is mapped to an array of form-oriented attributes.
 
   It will display either one or many objects depending on the kind of relation. When displaying
   many objects, it will also add the `Add a ...` and `Remove this ...` links.
@@ -217,7 +221,7 @@ The value used depends on the first keys encountered given this order:
 * `:field`, which type is check:
   - when Array, uses `f.public_send `*attr[:field]`.
     
-	This is quite similar to directly giving an Array, but permits to change the label.
+	This is quite similar to directly giving an Array, but allows to change the label.
 
   - when Hash, calls the controller method in field `attr[:field][:helper][0]`
     The `:helper` sub-key should be an array.
