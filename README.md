@@ -177,6 +177,10 @@ the first keys encountered given this order:
 		```ruby
 		  {category: :to_s}
 		```
+		
+  Having `{category: :to_s}` will return the value of `@resource.category.to_s`.    
+  Another example would be `{category: {description: :to_html}}` which will call 
+  `@resource.category.description.to_html`
 
 #### Form-oriented attributes
 
