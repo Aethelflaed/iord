@@ -9,7 +9,7 @@ module Iord
     def display(object, attrs)
       html  = "<dl>"
       attrs.each do |attr|
-        html += "<dt>#{v.field_name(attr).to_s}</dt>"
+        html += "<dt>#{v.field_name(attr).to_s.humanize}</dt>"
         html += "<dd>#{v.field_value(object, attr)}</dd>"
       end
       html += "</dl>"
