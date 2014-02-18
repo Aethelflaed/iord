@@ -23,14 +23,22 @@ module Iord
       set_resource_without_json
     end
 
+    def json_index_attrs
+      index_attrs
+    end
+
+    def json_show_attrs
+      show_attrs
+    end
+
     def json_index(hash)
-      attrs = index_attrs
+      attrs = json_index_attrs
       attrs.unshift(:id) unless attrs.include? :id
       {json: o.display_array(@collection, attrs)}
     end
 
     def json_show(hash)
-      attrs = show_attrs
+      attrs = json_show_attrs
       attrs.unshift(:id) unless attrs.include? :id
       {json: o.display(@resource, attrs)}
     end

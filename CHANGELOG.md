@@ -1,3 +1,7 @@
+## 0.1.1
+* Added `json_show_attrs` and `json_index_attrs` to specialize attributes for
+  json. These methods default to `show_attrs` and `index_attrs`.
+
 ## 0.1.0
 * Added JSON support, can be enabled by including Iord::Json module.
 * Fixed field name not humanized
