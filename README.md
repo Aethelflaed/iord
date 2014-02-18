@@ -174,9 +174,9 @@ the first keys encountered given this order:
   In other words, in the products controller, the following code displays the
   value `category.to_s` labelled `Category`:
 
-		```ruby
-		  {category: :to_s}
-		```
+  ```ruby
+  {category: :to_s}
+  ```
 		
   Having `{category: :to_s}` will return the value of `@resource.category.to_s`.    
   Another example would be `{category: {description: :to_html}}` which will call 
