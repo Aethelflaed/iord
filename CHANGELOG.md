@@ -1,3 +1,6 @@
+## 0.0.5
+* Added id as permitted attribute by default
+
 ## 0.0.4
 * Fixed error when adding a response format
 * Completed the deletation to crud_response_format

@@ -57,6 +57,8 @@ module Iord
       end
       # permit the destroy attribute
       _attrs << '_destroy'
+      # permit the id
+      _attrs << 'id'
     end
   end
 end
