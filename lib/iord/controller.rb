@@ -31,7 +31,7 @@ module Iord
         actions = *actions if actions.size == 1 and actions[0].is_a? Array
         self.resource_based_actions = self.resource_based_actions + actions
       end
-      alias :resource_action :resource_actions
+      alias_method :resource_action, :resource_actions
 
       def resource_actions!(*actions)
         actions = *actions if actions.size == 1 and actions[0].is_a? Array
