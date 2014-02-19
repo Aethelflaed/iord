@@ -84,6 +84,7 @@ module Iord
     end
 
     def image(url, hash)
+      hash ||= {}
       v.image_tag(url, hash)
     end
   end

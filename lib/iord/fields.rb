@@ -123,7 +123,7 @@ module Iord
           attr[:format].call(resource, attr[:value])
         end
       elsif attr.has_key? :image
-        o.image_tag resource.public_send(*attr[:image]), attr[:params]
+        o.image resource.public_send(*attr[:image]), attr[:params]
       elsif attr.has_key? :link
         o.link_to attr[:label], attr[:url], attr[:params]
       else
