@@ -2,6 +2,7 @@
 * Added `json_show_attrs` and `json_index_attrs` to specialize attributes for
   json. These methods default to `show_attrs` and `index_attrs`.
 * Fixed Iord::OutputHelper.image and its call in Iord::Field
+* Added key `:as` for display-oriented attributes to override the field name
 
 ## 0.1.0
 * Added JSON support, can be enabled by including Iord::Json module.

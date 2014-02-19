@@ -24,6 +24,7 @@ module Iord
       # default, simply humanize name
       return attr           unless attr.is_a? Hash
       # else, Hash
+      return attr[:as]      if attr.has_key? :as
       return attr[:object]  if attr.has_key? :object
       return attr[:array]   if attr.has_key? :array
       return attr[:value]   if attr.has_key? :value
