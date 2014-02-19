@@ -24,11 +24,15 @@ module Iord
     end
 
     def json_index_attrs
-      index_attrs
+      self.respond_to?(:json_attrs) ?
+        json_attrs :
+        index_attrs
     end
 
     def json_show_attrs
-      show_attrs
+      self.respond_to?(:json_attrs) ?
+        json_attrs :
+        show_attrs
     end
 
     def json_index(hash)
