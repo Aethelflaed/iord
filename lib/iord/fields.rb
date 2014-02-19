@@ -29,7 +29,6 @@ module Iord
       return attr[:array]   if attr.has_key? :array
       return attr[:value]   if attr.has_key? :value
       return attr[:link]    if attr.has_key? :link
-      return field_name(attr.values[0]) if attr.values[0].is_a? Hash
 
       attr.keys[0]
     end

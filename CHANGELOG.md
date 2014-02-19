@@ -4,6 +4,7 @@
 * Fixed Iord::OutputHelper.image and its call in Iord::Field.
 * Added key `:as` for display-oriented attributes to override the field name.
 * Added `json_attrs` as shortcut for both `json_***_attrs` methods.
+* Fixed hazardous value retrieving in field_name.
 
 ## 0.1.0
 * Added JSON support, can be enabled by including Iord::Json module.
