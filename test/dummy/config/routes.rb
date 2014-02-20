@@ -13,6 +13,8 @@ Dummy::Application.routes.draw do
   end
 
   namespace :admin do
+    resource :administrator
+
     resources :users
     resources :products
   end
