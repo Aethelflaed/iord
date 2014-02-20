@@ -4,9 +4,12 @@ Dummy::Application.routes.draw do
   resource :administrator
 
   resources :clients, controller: 'iord/generic'
-  resources :products
   resources :categories
   resources :users
+  resources :products do
+    resource :manager
+    resources :comments
+  end
 
   namespace :admin, module: nil do
     resources :clients, controller: 'iord/generic'
@@ -16,7 +19,10 @@ Dummy::Application.routes.draw do
     resource :administrator
 
     resources :users
-    resources :products
+    resources :products do
+      resource :manager
+      resources :comments
+    end
   end
 
   # The priority is based upon order of creation: first created -> highest priority.
