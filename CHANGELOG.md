@@ -1,3 +1,6 @@
+## 0.3.0 - Nested resources
+* Added module `Iord::Nested` to handle nested resources
+
 ## 0.2.0 - Singleton resource
 * Correclty handling singleton resources
 * Added `has_collection?` to handle correctly singleton resource.
