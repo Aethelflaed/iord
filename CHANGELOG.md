@@ -1,3 +1,4 @@
+## 0.2.0 - Singleton resource
 * Correclty handling singleton resources
 * Added `has_collection?` to handle correctly singleton resource.
 * Added `form_resource_url`
@@ -10,7 +11,7 @@
 * Added `json_attrs` as shortcut for both `json_***_attrs` methods.
 * Fixed hazardous value retrieving in field_name.
 
-## 0.1.0
+## 0.1.0 - JSON
 * Added JSON support, can be enabled by including Iord::Json module.
 * Fixed field name not humanized
 * Fixed resource_actions methods
