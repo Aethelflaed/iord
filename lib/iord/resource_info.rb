@@ -59,7 +59,9 @@ module Iord
         namespace = controller_name[0..controller_name.rindex(':')] if controller_name.rindex(':')
       end
 
-      class_name = self.class.controller_name.camelize
+      class_name = default(:resource_class)
+      class_name ||= self.class.controller_name.camelize
+      class_name.to_s
       @collection_name = class_name.humanize
       resource_class = class_name.singularize
       @resource_name = resource_class.humanize

@@ -1,3 +1,5 @@
+* Added `Iord::Defaults`
+
 ## 0.3.0 - Nested resources
 * Added module `Iord::Nested` to handle nested resources
 

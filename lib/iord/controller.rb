@@ -1,4 +1,5 @@
 require 'active_support/concern'
+require 'iord/defaults'
 require 'iord/resource_info'
 require 'iord/resource_url'
 require 'iord/crud'
@@ -10,6 +11,7 @@ require 'iord/resolver'
 module Iord
   module Controller
     extend ActiveSupport::Concern
+    include Iord::Defaults
     include Iord::ResourceInfo
     include Iord::ResourceUrl
     include Iord::Attriutes
