@@ -1,3 +1,5 @@
+* Added `has_collection?` to handle correctly singleton resource.
+
 ## 0.1.1
 * Added `json_show_attrs` and `json_index_attrs` to specialize attributes for
   json. These methods default to `show_attrs` and `index_attrs`.

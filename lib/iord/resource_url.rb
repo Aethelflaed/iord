@@ -5,10 +5,16 @@ module Iord
     extend ActiveSupport::Concern
 
     included do
+      helper_method :has_collection?
+
       helper_method :resource_url
       helper_method :collection_url
       helper_method :new_resource_url
       helper_method :edit_resource_url
+    end
+
+    def has_collection?
+      @has_collection ||= self.respond_to? collection_url_method
     end
 
     def resource_url_method
