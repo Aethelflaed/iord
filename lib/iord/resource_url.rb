@@ -7,6 +7,7 @@ module Iord
     included do
       helper_method :has_collection?
 
+      helper_method :form_resource_url
       helper_method :resource_url
       helper_method :collection_url
       helper_method :new_resource_url
@@ -22,11 +23,21 @@ module Iord
     end
 
     def collection_url_method
-      @collection_url_method ||= (action_path + '_url').to_sym
+      @collection_url_method ||= (action_path.pluralize + '_url').to_sym
+    end
+
+    def form_resource_url
+      if @resource.persisted? or not has_collection?
+        resource_url
+      else
+        collection_url
+      end
     end
 
     def resource_url(resource = nil)
-      self.public_send resource_url_method.to_sym, (resource || @resource)
+      resource ||= @resource
+      resource = nil unless has_collection?
+      self.public_send resource_url_method.to_sym, resource
     end
 
     def collection_url
@@ -38,7 +49,9 @@ module Iord
     end
 
     def edit_resource_url(resource = nil)
-      self.public_send "edit_#{resource_url_method}".to_sym, (resource || @resource)
+      resource ||= @resource
+      resource = nil unless has_collection?
+      self.public_send "edit_#{resource_url_method}".to_sym, resource
     end
   end
 end

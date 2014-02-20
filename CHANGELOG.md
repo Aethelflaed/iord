@@ -1,4 +1,5 @@
 * Added `has_collection?` to handle correctly singleton resource.
+* Added `form_resource_url`
 
 ## 0.1.1
 * Added `json_show_attrs` and `json_index_attrs` to specialize attributes for
