@@ -42,7 +42,13 @@ module Iord
     protected
     def set_resource
       return unless self.class.resource_based_actions.include? params[:action].to_sym
-      @resource = resource_class.find params[:id]
+      if params[:id]
+        @resource = resource_class.find params[:id]
+      elsif resource_class.count > 0
+        @resource = resource_class.first
+      else
+        @resource = resource_class.new
+      end
     end
   end
 end

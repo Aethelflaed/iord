@@ -1,3 +1,4 @@
+* Correclty handling singleton resources
 * Added `has_collection?` to handle correctly singleton resource.
 * Added `form_resource_url`
 
