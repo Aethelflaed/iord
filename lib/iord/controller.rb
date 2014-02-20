@@ -31,7 +31,7 @@ module Iord
         actions = *actions if actions.size == 1 and actions[0].is_a? Array
         self.resource_based_actions = self.resource_based_actions + actions
       end
-      alias :resource_action :resource_actions
+      alias_method :resource_action, :resource_actions
 
       def resource_actions!(*actions)
         actions = *actions if actions.size == 1 and actions[0].is_a? Array
@@ -42,7 +42,13 @@ module Iord
     protected
     def set_resource
       return unless self.class.resource_based_actions.include? params[:action].to_sym
-      @resource = resource_class.find params[:id]
+      if params[:id]
+        @resource = resource_class.find params[:id]
+      elsif resource_class.count > 0
+        @resource = resource_class.first
+      else
+        @resource = resource_class.new
+      end
     end
   end
 end

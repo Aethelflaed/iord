@@ -1,6 +1,8 @@
 require 'iord'
 
 Dummy::Application.routes.draw do
+  resource :administrator
+
   resources :clients, controller: 'iord/generic'
   resources :products
   resources :categories
@@ -11,6 +13,8 @@ Dummy::Application.routes.draw do
   end
 
   namespace :admin do
+    resource :administrator
+
     resources :users
     resources :products
   end
