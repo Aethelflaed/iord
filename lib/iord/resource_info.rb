@@ -61,7 +61,7 @@ module Iord
 
       class_name = default(:resource_class)
       class_name ||= self.class.controller_name.camelize
-      class_name.to_s
+      class_name = class_name.to_s
       @collection_name = class_name.humanize
       resource_class = class_name.singularize
       @resource_name = resource_class.humanize
