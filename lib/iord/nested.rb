@@ -17,16 +17,24 @@ module Iord
       alias_method_chain :build_resource_info, :nested
     end
 
+    def parent_collection_name
+      default(:parent_collection_name) || resource_name_u.pluralize.to_sym
+    end
+
+    def parent_resource_name
+      default(:parent_resource_name) || resource_name_u.to_sym
+    end
+
     def index
-      @collection = @parent.public_send("#{resource_name_u.pluralize}")
+      @collection = @parent.public_send(parent_collection_name)
     end
 
     def create
       @resource = resource_class.new resource_params
-      if @parent.respond_to? "#{resource_name_u}=".to_sym
-        @parent.public_send "#{resource_name_u}=".to_sym, @resource
-      elsif @parent.respond_to? "#{resource_name_u.pluralize}".to_sym
-        collection = @parent.public_send "#{resource_name_u.pluralize}".to_sym
+      if @parent.respond_to? "#{parent_resource_name}=".to_sym
+        @parent.public_send "#{parent_resource_name}=".to_sym, @resource
+      elsif @parent.respond_to? parent_collection_name
+        collection = @parent.public_send parent_collection_name
         collection << @resource
       end
 
@@ -64,13 +72,13 @@ module Iord
         @parents << @parent
       end
       return unless self.class.resource_based_actions.include? params[:action].to_sym
-      if @parent.respond_to? "#{resource_name_u.pluralize}".to_sym
-        @resource = @parent.public_send("#{resource_name_u.pluralize}").find(params[:id])
+      if @parent.respond_to? parent_collection_name
+        @resource = @parent.public_send(parent_collection_name).find(params[:id])
       else
-        @resource = @parent.public_send(resource_name_u)
+        @resource = @parent.public_send(parent_resource_name)
         if @resource.nil?
           @resource = resource_class.new
-          @parent.public_send("#{resource_name_u}=".to_sym, @resource)
+          @parent.public_send("#{parent_resource_name}=".to_sym, @resource)
         end
       end
     end
