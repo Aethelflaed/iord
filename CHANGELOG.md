@@ -1,3 +1,4 @@
+* `Iord::Json` now works with `Iord::Nested`
 * Added `Iord::Defaults`
 
 ## 0.3.0 - Nested resources
