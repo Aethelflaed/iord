@@ -11,8 +11,18 @@ class CommentsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "should get json index" do
+    get :index, product_id: @product_id, format: :json
+    assert_response :success
+  end
+
   test "should get show" do
     get :show, product_id: @product_id, id: @comment
+    assert_response :success
+  end
+
+  test "should get json show" do
+    get :show, product_id: @product_id, id: @comment, format: :json
     assert_response :success
   end
 

@@ -18,15 +18,18 @@ module Iord
     end
 
     def parent_collection_name
-      default(:parent_collection_name) || resource_name_u.pluralize.to_sym
+      @parent_collection_name ||=
+        default(:parent_collection_name) || resource_name_u.pluralize.to_sym
     end
 
     def parent_resource_name
-      default(:parent_resource_name) || resource_name_u.to_sym
+      @parent_resource_name ||=
+        default(:parent_resource_name) || resource_name_u.to_sym
     end
 
     def index
       @collection = @parent.public_send(parent_collection_name)
+      index!
     end
 
     def create
