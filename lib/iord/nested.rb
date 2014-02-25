@@ -5,16 +5,20 @@ module Iord
     extend ActiveSupport::Concern
 
     included do
-      cattr_accessor :parent_models, instance_accesssor: false do
-        []
-      end
-
       #alias_method_chain :collection_url, :nested
       alias_method_chain :resource_url, :nested
       alias_method_chain :edit_resource_url, :nested
 
       alias_method_chain :set_resource, :nested
       alias_method_chain :build_resource_info, :nested
+    end
+
+    def parent_models
+      @parent_models ||= default(:parent_models) || []
+    end
+
+    def parents_collection_names
+      @parents_collection_names ||= default(:parents_collection_names) || []
     end
 
     def parent_collection_name
@@ -64,15 +68,23 @@ module Iord
       self.run_hook :before_set_resource
       @parents = Array.new
       @parent = nil
-      if self.class.parent_models.empty?
-        path = request.path[1..-1].split('/').reject { |x| x =~ /^new|edit|[a-f0-9]$/ }
+      if self.parent_models.empty?
+        path = request.path[1..-1].split('/').reject { |x| x =~ /^new|edit|[a-f0-9]+(\.[a-z0-9]{2,5})?$/ }
         path = path[0..-2].map { |x| x.singularize.camelize.constantize }
-        self.class.parent_models = path
+        @parent_models = path
       end
-      self.class.parent_models.each do |model|
+      self.parent_models.each_with_index do |model, index|
         param = "#{model.name.underscore}_id".to_sym
-        parent = @parents.empty? ? model : @parent
-        @parent = parent.find(params[param])
+        collection = model
+        unless @parents.empty?
+          collection = @parent
+          collection_name = self.parents_collection_names[index]
+          if collection_name.nil?
+            collection_name = model.name.underscore.pluralize.to_sym
+          end
+          collection = @parent.public_send(collection_name)
+        end
+        @parent = collection.find(params[param])
         @parents << @parent
       end
       return unless self.class.resource_based_actions.include? params[:action].to_sym
@@ -94,15 +106,8 @@ module Iord
       path.reject! { |x| x =~ /^(new|edit|[a-f0-9]+)$/i } .map! { |x| x.singularize }
       @action_path = path.join('_').pluralize
 
-      parent_path = self.class.parent_models.map { |x| x.name.underscore }
+      parent_path = self.parent_models.map { |x| x.name.underscore }
       @parent_path = parent_path.join('/')
-    end
-
-    module ClassMethods
-      def parent_model(*models)
-        models = *models if models.size == 1 and models[0].is_a? Array
-        self.parent_models = models
-      end
     end
   end
 end

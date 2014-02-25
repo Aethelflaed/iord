@@ -8,7 +8,9 @@ Dummy::Application.routes.draw do
   resources :users
   resources :products do
     resource :manager
-    resources :comments
+    resources :comments do
+      resources :comments, controller: 'subcomments'
+    end
   end
 
   namespace :admin, module: nil do

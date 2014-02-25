@@ -6,7 +6,7 @@ module Admin
     include Iord::Controller
     include Iord::Nested
 
-    parent_model Product
+    defaults parent_models: [Product]
   end
 end
 
