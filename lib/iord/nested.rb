@@ -58,6 +58,7 @@ module Iord
     end
 
     def set_resource_with_nested
+      self.run_hook :before_set_resource
       @parents = Array.new
       @parent = nil
       if self.class.parent_models.empty?

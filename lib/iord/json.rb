@@ -15,12 +15,11 @@ module Iord
         end
       end
 
-      alias_method_chain :set_resource, :json
-    end
-
-    def set_resource_with_json
-      self.o = ::Iord::JsonOutput.new(view_context) if request.format.symbol == :json
-      set_resource_without_json
+      before_set_resource do
+        if request.format.symbol == :json
+          self.o = ::Iord::JsonOutput.new(view_context)
+        end
+      end
     end
 
     def json_index_attrs
