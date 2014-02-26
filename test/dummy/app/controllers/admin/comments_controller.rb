@@ -7,7 +7,7 @@ module Admin
     include Iord::Controller
     include Iord::Nested
 
-    parent_model Product
+    defaults parent_models: [Product]
 
     def index_attrs
       %i(author_name)

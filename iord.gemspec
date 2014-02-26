@@ -19,8 +19,10 @@ Gem::Specification.new do |s|
   s.add_dependency 'rails', '~> 4.0'
 
   s.add_runtime_dependency 'nested_form', '~> 0.3.2'
+  s.add_runtime_dependency 'hooks', '~> 0.3.3'
 
   s.add_development_dependency 'nested_form', '~> 0.3.2'
+  s.add_development_dependency 'hooks', '~> 0.3.3'
   s.add_development_dependency 'jquery-rails', '~> 3.1.0'
   s.add_development_dependency 'factory_girl_rails'
   s.add_development_dependency 'database_cleaner'

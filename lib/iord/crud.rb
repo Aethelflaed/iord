@@ -19,6 +19,9 @@ module Iord
 
     def index
       @collection = resource_class.all
+      index!
+    end
+    def index!
       respond_to do |format|
         format.html { render }
         formats(format)
@@ -26,6 +29,9 @@ module Iord
     end
 
     def show
+      show!
+    end
+    def show!
       respond_to do |format|
         format.html { render }
         formats(format)
@@ -39,6 +45,9 @@ module Iord
           @resource.public_send "build_#{name}".to_sym
         end
       end
+      new!
+    end
+    def new!
       respond_to do |format|
         format.html { render }
         formats(format)
@@ -46,6 +55,9 @@ module Iord
     end
 
     def edit
+      edit!
+    end
+    def edit!
       respond_to do |format|
         format.html { render }
         formats(format)
@@ -54,10 +66,8 @@ module Iord
 
     def create
       @resource = resource_class.new resource_params
-
       create!
     end
-
     def create!
       respond_to do |format|
         if @resource.save
@@ -73,6 +83,9 @@ module Iord
 
     def update
       @resource.update_attributes resource_params
+      update!
+    end
+    def update!
       respond_to do |format|
         if @resource.save
           flash[:notice] = t('iord.flash.update.notice', model: resource_name)
