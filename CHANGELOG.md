@@ -1,3 +1,5 @@
+* Replaced `:label` by `:as` for form-oriented attributes 
+
 # 0.4.0 - Defaults
 * Added `Iord::Defaults`
 * Added `before_set_resource` hook

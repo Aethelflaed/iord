@@ -34,7 +34,7 @@ module Iord
     end
 
     def field_label(f, attr)
-      return f.label *attr[:label] if attr.has_key? :label
+      return f.label *attr[:as] if attr.has_key? :as
       f.label attr[:attr]
     end
 
