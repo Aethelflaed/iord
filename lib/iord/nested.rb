@@ -69,7 +69,7 @@ module Iord
       @parents = Array.new
       @parent = nil
       if self.parent_models.empty?
-        path = request.path[1..-1].split('/').reject { |x| x =~ /^new|edit|[a-f0-9]+(\.[a-z0-9]{2,5})?$/ }
+        path = request.path[1..-1].split('/').reject { |x| x =~ /^#{params[:action]}|[a-f0-9]+(\.#{params[:format]})?$/ }
         path = path[0..-2].map { |x| x.singularize.camelize.constantize }
         @parent_models = path
       end

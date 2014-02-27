@@ -1,3 +1,4 @@
+* Using `params[:action]` and `params[:format]` to sanitize the request path
 * Replaced `:label` by `:as` for form-oriented attributes 
 
 # 0.4.0 - Defaults

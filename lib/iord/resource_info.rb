@@ -70,9 +70,9 @@ module Iord
 
       path = request.path[1..-1].split('/')
       # if new or edit
-      path.pop if path.last =~/^(new|edit)$/
+      path.pop if path.last == params[:action]
       # if ID
-      path.pop if path.last =~ /^[a-f0-9]+$/
+      path.pop if path.last =~ /^[a-f0-9]+(\.#{params[:format]})?$/
       @action_path = path.join('_')
 
       @resource_path = Array.new
