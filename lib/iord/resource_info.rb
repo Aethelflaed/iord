@@ -68,12 +68,10 @@ module Iord
       @resource_name_u = resource_class.underscore
       @resource_class = (namespace + resource_class).constantize
 
-      path = request.path[1..-1].split('/')
-      # if new or edit
-      path.pop if path.last == params[:action]
-      # if ID
-      path.pop if path.last =~ /^[a-f0-9]+(\.#{params[:format]})?$/
-      @action_path = path.join('_')
+      @action_path = request.path[1..-1].split('/').
+        reject { |x| x=~ /^(#{params[:action]}|[a-f0-9]+(\.#{params[:format]})?)$/ }.
+        map { |x| x.singularize }.
+        join('_').pluralize
 
       @resource_path = Array.new
       if controller_path.rindex('/')

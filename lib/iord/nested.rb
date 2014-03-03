@@ -102,9 +102,6 @@ module Iord
     def build_resource_info_with_nested
       return if @parent_path
       build_resource_info_without_nested
-      path = request.path[1..-1].split('/')
-      path.reject! { |x| x =~ /^(new|edit|[a-f0-9]+)$/i } .map! { |x| x.singularize }
-      @action_path = path.join('_').pluralize
 
       parent_path = self.parent_models.map { |x| x.name.underscore }
       @parent_path = parent_path.join('/')
