@@ -51,6 +51,13 @@ module Iord
             _attrs << {(a[:attr].to_s + '_attributes').to_sym => construct_permit_params_array(a[:fields])}
           end
           _attrs << a[:attr]
+        elsif a.is_a? Array
+          key = a[1]
+          if key.to_s.ends_with? '_ids'
+            _attrs << {key => []}
+          else
+            _attrs << key
+          end
         else
           _attrs << a
         end

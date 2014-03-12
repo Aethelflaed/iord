@@ -1,9 +1,11 @@
-# 0.4.1
+* Correctly handling form-oriented attributes validation
+
+## 0.4.1
 * Improved the request path, to calculate the route methods
 * Using `params[:action]` and `params[:format]` to sanitize the request path
 * Replaced `:label` by `:as` for form-oriented attributes 
 
-# 0.4.0 - Defaults
+## 0.4.0 - Defaults
 * Added `Iord::Defaults`
 * Added `before_set_resource` hook
 * `Iord::Json` now works with `Iord::Nested`
