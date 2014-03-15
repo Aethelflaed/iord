@@ -1,3 +1,4 @@
+## 0.4.2
 * Correctly handling form-oriented attributes validation
 
 ## 0.4.1
