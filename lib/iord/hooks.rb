@@ -5,6 +5,9 @@ module Iord
     extend ActiveSupport::Concern
 
     included do
+      alias_method_chain :create!, :hooks
+      alias_method_chain :update!, :hooks
+      alias_method_chain :destroy!, :hooks
     end
 
     def create_with_hooks!
@@ -12,27 +15,24 @@ module Iord
         execute_hook(resource_name_u, :create)
       end
     end
-    alias_method_chain :create!, :hooks
 
     def update_with_hooks!
       if update_without_hooks!
         execute_hook(resource_name_u, :update)
       end
     end
-    alias_method_chain :update!, :hooks
 
     def destroy_with_hooks!
       if destroy_without_hooks!
         execute_hook(resource_name_u, :destroy)
       end
     end
-    alias_method_chain :destroy!, :hooks
 
     def execute_hook(resource_name, action)
       Iord::HookSet.execute_hook(resource_name, action, @resource)
     end
 
-    def register_hook(resource_name, action)
+    def register_hook(resource_name, action = :all)
       hook = Proc.new
       if action.to_sym == :all
         Iord::HookSet.register_hook(resource_name, :create, hook)
@@ -43,9 +43,6 @@ module Iord
       end
     end
     module_function :register_hook
-
-    module ClassMethods
-    end
   end
 
   class HookSet
@@ -66,7 +63,7 @@ module Iord
       action = action.to_sym
       if hooks[name] and hooks[name][action]
         hooks[name][action].each do |hook|
-          hook.call(action, resource)
+          hook.call(resource, action)
         end
       end
     end

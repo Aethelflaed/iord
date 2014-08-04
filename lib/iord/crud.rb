@@ -101,6 +101,10 @@ module Iord
     end
 
     def destroy
+      destroy!
+    end
+
+    def destroy!
       result = @resource.destroy
       respond_to do |format|
         if result
@@ -114,7 +118,6 @@ module Iord
       end
       return result
     end
-    alias_method :destroy!, :destroy
 
     private
     def formats(format, hash = {})
