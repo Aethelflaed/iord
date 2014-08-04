@@ -17,8 +17,12 @@ module Iord
       end
     end
 
+    def create_collection
+      resource_class.all
+    end
+
     def index
-      @collection = resource_class.all
+      @collection = create_collection
       index!
     end
     def index!
@@ -103,7 +107,6 @@ module Iord
     def destroy
       destroy!
     end
-
     def destroy!
       result = @resource.destroy
       respond_to do |format|
