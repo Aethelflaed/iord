@@ -6,6 +6,7 @@ module Iord
       content = String.new
       if v.resource_class.attribute_names.include? attribute.to_s
         content += v.link_to sort_desc_symbol, v.collection_url(order_by: attribute, sort_mode: :desc)
+        content += "&nbsp;"
         content += v.link_to sort_asc_symbol, v.collection_url(order_by: attribute, sort_mode: :asc)
       end
       return content.html_safe
