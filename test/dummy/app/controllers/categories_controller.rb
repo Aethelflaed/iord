@@ -1,4 +1,5 @@
 require 'iord/controller'
+require 'iord/hooks'
 
 class CategoriesController < ApplicationController
   include Iord::Controller

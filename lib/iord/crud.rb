@@ -69,16 +69,17 @@ module Iord
       create!
     end
     def create!
+      result = @resource.save
       respond_to do |format|
-        if @resource.save
+        if result
           flash[:notice] = t('iord.flash.create.notice', model: resource_name)
           format.html { redirect_to resource_url }
-          formats(format, created: true)
         else
           format.html { render action: 'new' }
-          formats(format, created: false)
         end
+        formats(format, created: result)
       end
+      return result
     end
 
     def update
@@ -86,30 +87,36 @@ module Iord
       update!
     end
     def update!
+      result = @resource.save
       respond_to do |format|
-        if @resource.save
+        if result
           flash[:notice] = t('iord.flash.update.notice', model: resource_name)
           format.html { redirect_to resource_url }
-          formats(format, updated: true)
         else
           format.html { render action: 'edit' }
-          formats(format, updated: false)
         end
+        formats(format, updated: result)
       end
+      return result
     end
 
     def destroy
+      destroy!
+    end
+
+    def destroy!
+      result = @resource.destroy
       respond_to do |format|
-        if @resource.destroy
+        if result
           flash[:notice] = t('iord.flash.destroy.notice', model: resource_name)
           format.html { redirect_to collection_url }
-          formats(format, destroyed: true)
         else
           flash[:alert] = t('iord.flash.destroy.alert', model: resource_name)
           format.html { redirect_to collection_url }
-          formats(format, destroyed: false)
         end
+        formats(format, destroyed: result)
       end
+      return result
     end
 
     private

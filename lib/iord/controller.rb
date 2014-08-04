@@ -20,7 +20,7 @@ module Iord
     include Iord::Fields
 
     included do
-      include Hooks
+      include ::Hooks
 
       append_view_path Iord::Resolver.new
       define_hook :before_set_resource
