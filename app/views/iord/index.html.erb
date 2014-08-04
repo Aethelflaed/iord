@@ -7,7 +7,12 @@
     <tr>
       <% index_attrs.each do |attr| %>
         <th>
-          <%= field_name(attr).to_s.humanize %>
+          <% if iord_features.include? :sort -%>
+            <%= field_name(attr).to_s.humanize %>
+            <%= iordh.order_by(field_attribute(attr)) %>
+          <% else -%>
+            <%= field_name(attr).to_s.humanize %>
+          <% end -%>
         </th>
       <% end %>
       <th>Actions</th>

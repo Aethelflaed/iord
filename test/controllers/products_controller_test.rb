@@ -22,9 +22,13 @@ class ProductsControllerTest < ActionController::TestCase
     assert_response :success
     collection = assigns(:collection)
     assert_not_nil collection
+    one_assert_done = false
     (collection.count - 1).times do |i|
+      next if collection[i].quantity.nil? or collection[i + 1].quantity.nil?
       assert collection[i].quantity <= collection[i + 1].quantity
+      one_assert_done = true
     end
+    assert one_assert_done
   end
 
   test "should get json index" do
