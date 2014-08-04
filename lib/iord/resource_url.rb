@@ -40,8 +40,12 @@ module Iord
       self.public_send resource_url_method.to_sym, resource
     end
 
-    def collection_url
-      @collection_url ||= self.public_send collection_url_method
+    def collection_url(options = {})
+      if options.empty?
+        @collection_url ||= self.public_send collection_url_method
+      else
+        self.public_send collection_url_method, options
+      end
     end
 
     def new_resource_url

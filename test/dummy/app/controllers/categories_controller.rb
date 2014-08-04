@@ -1,8 +1,9 @@
 require 'iord/controller'
-require 'iord/hooks'
+require 'iord/paginate'
 
 class CategoriesController < ApplicationController
   include Iord::Controller
+  include Iord::Paginate
 
   def index_attrs
     %i(name)

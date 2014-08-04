@@ -11,7 +11,7 @@ GIT
 PATH
   remote: .
   specs:
-    iord (0.5)
+    iord (0.6)
       hooks (~> 0.3.3)
       nested_form (~> 0.3.2)
       rails (~> 4.0)
