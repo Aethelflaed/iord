@@ -3,7 +3,7 @@ class Product
 
   field :name
   field :reference
-  field :quantity
+  field :quantity, type: Integer
 
   belongs_to :category
 

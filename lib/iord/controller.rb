@@ -7,6 +7,8 @@ require 'iord/crud'
 require 'iord/attributes'
 require 'iord/fields'
 require 'iord/resolver'
+require 'iord/paginate'
+require 'iord/sort'
 
 # Information Oriented Representation of Data
 module Iord
@@ -29,6 +31,11 @@ module Iord
       cattr_accessor :resource_based_actions, instance_accesssor: false do
         %i(show edit update destroy)
       end
+
+      cattr_accessor :iord_features do
+        Array.new
+      end
+      helper_method :iord_features
     end
 
     module ClassMethods

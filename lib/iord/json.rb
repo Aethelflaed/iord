@@ -20,6 +20,8 @@ module Iord
           self.o = ::Iord::JsonOutput.new(view_context)
         end
       end
+
+      iord_features << :json
     end
 
     def json_index_attrs

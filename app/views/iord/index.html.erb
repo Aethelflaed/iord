@@ -1,1 +1,37 @@
-<%= render(partial: 'index') -%>
+<h1><%= t('iord.titles.list', models: collection_name) %></h1>
+<%= iordh.link_to_create %>
+<br/>
+<br/>
+<table>
+  <thead>
+    <tr>
+      <% index_attrs.each do |attr| %>
+        <th>
+          <%= field_name(attr).to_s.humanize %>
+        </th>
+      <% end %>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @collection.each do |resource| %>
+      <tr>
+        <% index_attrs.each do |attr| %>
+          <td>
+            <%= field_value(resource, attr) %>
+          </td>
+        <% end %>
+        <td>
+          <%= iordh.link_to_show(resource) %>
+          &nbsp;
+          <%= iordh.link_to_edit(resource) %>
+          &nbsp;
+          <%= iordh.link_to_destroy(resource) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<% if iord_features.include? :paginate -%>
+  <%= iordh.pagination %>
+<% end -%>

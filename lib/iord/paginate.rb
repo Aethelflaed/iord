@@ -27,19 +27,12 @@ module Iord
 
     included do
       alias_method_chain :create_collection, :pagination
-      alias_method_chain :index!, :pagination
 
       helper_method :limit
       helper_method :offset
       helper_method :count
-    end
 
-    def index_with_pagination!
-      if request.format.symbol == :html
-        render 'index_paginated'
-      else
-        index_without_pagination!
-      end
+      iord_features << :paginate
     end
 
     def limit
