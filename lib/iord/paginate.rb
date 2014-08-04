@@ -10,7 +10,7 @@ module Iord
         if (i * limit) == offset
           page_div += page(i)
         else
-          page_div += v.link_to page(i), v.collection_url(offset: i * limit, limit: limit)
+          page_div += v.link_to page(i), v.collection_url(offset: i * limit)
         end
       end
       page_div += %Q[</div>]
@@ -43,7 +43,14 @@ module Iord
     end
 
     def limit
-      @limit ||= Integer(params[:limit] || default(:limit) || 25)
+      if @limit.nil?
+        @limit = Integer(params[:limit] ||
+                         default(:limit) ||
+                         Rails.configuration.try(:iord_pagination_default_limit) ||
+                         25)
+        collection_url_defaults[:limit] = @limit
+      end
+      return @limit
     end
 
     def offset

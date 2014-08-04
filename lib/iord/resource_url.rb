@@ -40,11 +40,20 @@ module Iord
       self.public_send resource_url_method.to_sym, resource
     end
 
+    def collection_url_defaults
+      @collection_url_defaults ||= Hash.new
+    end
+
     def collection_url(options = {})
-      if options.empty?
-        @collection_url ||= self.public_send collection_url_method
-      else
+      if options.present?
+        if options == true
+          options = collection_url_defaults
+        else
+          options = collection_url_defaults.merge options
+        end
         self.public_send collection_url_method, options
+      else
+        @collection_url ||= self.public_send collection_url_method
       end
     end
 
