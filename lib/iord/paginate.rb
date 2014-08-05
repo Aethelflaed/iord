@@ -5,20 +5,34 @@ module Iord
     def pagination
       limit = v.limit
       offset = v.offset
+      count = v.count
       page_div = %Q[<div class="page">]
-      (v.count / limit + 1).times do |i|
+
+      if offset - limit + 1 > 0
+        page_div += v.link_to "<", v.collection_url(offset: offset - limit)
+        page_div += "&nbsp;"
+      end
+
+      (count / limit + 1).times do |i|
+        page_div += "&nbsp;" unless i == 0
         if (i * limit) == offset
           page_div += page(i)
         else
           page_div += v.link_to page(i), v.collection_url(offset: i * limit)
         end
       end
+
+      if offset < (count - limit)
+        page_div += "&nbsp;"
+        page_div += v.link_to ">", v.collection_url(offset: offset + limit)
+      end
+
       page_div += %Q[</div>]
       return page_div.html_safe
     end
 
     def page(i)
-      %Q[<span class="page">#{i}</span>].html_safe
+      %Q[<span class="page">#{i + 1}</span>].html_safe
     end
   end
 
