@@ -4,6 +4,8 @@ require 'iord/json'
 class ProductsController < ApplicationController
   include Iord::Controller
   include Iord::Json
+  include Iord::Sort
+  include Iord::Paginate
 
   def index_attrs
     %i(name reference quantity)

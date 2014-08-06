@@ -1,3 +1,12 @@
+## 0.7 - Sort
+* Added sort methods for resource attributes
+
+## 0.6 - Paginate
+* Added paginate
+
+## 0.5 - Hooks
+* Added hooks for create / update / destroy methods
+
 ## 0.4.2
 * Correctly handling form-oriented attributes validation
 

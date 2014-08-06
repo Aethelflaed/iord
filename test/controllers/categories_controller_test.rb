@@ -3,7 +3,7 @@ require 'test_helper'
 class CategoriesControllerTest < ActionController::TestCase
   setup do
     @category = create(:category)
-    @@categories_created = false
+    @@categories_created ||= false
     unless @@categories_created
       95.times do
         create(:category)

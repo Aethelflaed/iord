@@ -3,11 +3,32 @@ require 'test_helper'
 class ProductsControllerTest < ActionController::TestCase
   setup do
     @product = create(:product)
+    @@products_created ||= false
+    unless @@products_created
+      5.times do
+        create(:product)
+      end
+      @@products_created = true
+    end
   end
 
   test "should get index" do
     get :index
     assert_response :success
+  end
+
+  test "should get index sorted" do
+    get :index, order_by: :quantity
+    assert_response :success
+    collection = assigns(:collection)
+    assert_not_nil collection
+    one_assert_done = false
+    (collection.count - 1).times do |i|
+      next if collection[i].nil? or collection[i + 1].nil? or collection[i].quantity.nil? or collection[i + 1].quantity.nil?
+      assert collection[i].quantity <= collection[i + 1].quantity
+      one_assert_done = true
+    end
+    assert one_assert_done
   end
 
   test "should get json index" do
@@ -37,7 +58,7 @@ class ProductsControllerTest < ActionController::TestCase
 
   test "should create" do
     assert_difference('Product.count') do
-      post :create, product: {name: 'Hello'}
+      post :create, product: {name: 'Hello', quantity: 10}
     end
     assert_response 302
   end

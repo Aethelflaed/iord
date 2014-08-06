@@ -6,6 +6,7 @@ module Iord
     extend ActiveSupport::Concern
 
     included do
+      helper_method :field_attribute
       helper_method :field_name
       helper_method :field_form
       helper_method :field_value
@@ -19,9 +20,22 @@ module Iord
     end
     alias_method :iordh, :o
 
+    def field_attribute(attr)
+      return "id"           if attr == :_id
+      # default, simply return name
+      return attr           unless attr.is_a? Hash
+      # else, Hash
+      return attr[:object]  if attr.has_key? :object
+      return attr[:array]   if attr.has_key? :array
+      return attr[:value]   if attr.has_key? :value
+      return attr[:link]    if attr.has_key? :link
+
+      attr.keys[0]
+    end
+
     def field_name(attr)
       return "id"           if attr == :_id
-      # default, simply humanize name
+      # default, simply return name
       return attr           unless attr.is_a? Hash
       # else, Hash
       return attr[:as]      if attr.has_key? :as
