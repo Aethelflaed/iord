@@ -51,7 +51,7 @@ module Iord
         else
           options = collection_url_defaults.merge options
         end
-        self.public_send collection_url_method, options
+        return self.public_send collection_url_method, options
       else
         @collection_url ||= self.public_send collection_url_method
       end

@@ -2,10 +2,31 @@
 <%= iordh.link_to_create %>
 <br/>
 <br/>
+<div class="search">
+  <% if iord_features.include? :search -%>
+    <%= form_tag(collection_url, method: :get) do -%>
+      <select name="q" id="search_term">
+        <% resource_class.attribute_names.each do |attr| -%>
+          <option value="<%= attr %>"><%= attr %></option>
+        <% end -%>
+      </select>
+      <select name="op" id="search_operand">
+        <option value="eq">Equal</option>
+        <option value="lt">Lower than</option>
+        <option value="lte">Lower or equal</option>
+        <option value="gt">Greater than</option>
+        <option value="gte">Greater or equal</option>
+        <option value="like">Like</option>
+      </select>
+      <input type="text" name="v" id="search_value" />
+      <input type="submit" value="Search" />
+    <% end-%>
+  <% end -%>
+</div>
 <table>
   <thead>
     <tr>
-      <% index_attrs.each do |attr| %>
+      <% index_attrs.each do |attr| -%>
         <th>
           <% if iord_features.include? :sort -%>
             <%= field_name(attr).to_s.humanize %>
