@@ -6,9 +6,10 @@ class ProductsController < ApplicationController
   include Iord::Json
   include Iord::Sort
   include Iord::Paginate
+  include Iord::Search
 
   def index_attrs
-    %i(name reference quantity)
+    show_attrs
   end
 
   def show_attrs

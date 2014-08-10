@@ -31,6 +31,23 @@ class ProductsControllerTest < ActionController::TestCase
     assert one_assert_done
   end
 
+  test "should get index search" do
+    create(:product, name: 'HelloWorld')
+    create(:product, name: 'value')
+    get :index, q: :name, v: 'HelloWorld', op: :like
+    assert_response :success
+    collection = assigns(:collection)
+    assert_not_nil collection
+    assert collection.count > 0
+    assert collection.count < Product.count, "The search has not been performed"
+
+    get :index, q: :name, v: 'value'
+    assert_response :success
+    collection = assigns(:collection)
+    assert collection.count > 0
+    assert collection.count < Product.count, "The search has not been performed"
+  end
+
   test "should get json index" do
     get :index, format: :json
     assert_response :success

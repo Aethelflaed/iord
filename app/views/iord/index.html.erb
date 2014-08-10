@@ -2,17 +2,14 @@
 <%= iordh.link_to_create %>
 <br/>
 <br/>
+<%= iordh.search_if_enabled %>
 <table>
   <thead>
     <tr>
-      <% index_attrs.each do |attr| %>
+      <% index_attrs.each do |attr| -%>
         <th>
-          <% if iord_features.include? :sort -%>
-            <%= field_name(attr).to_s.humanize %>
-            <%= iordh.order_by(field_attribute(attr)) %>
-          <% else -%>
-            <%= field_name(attr).to_s.humanize %>
-          <% end -%>
+          <%= field_name(attr).to_s.humanize %>
+          <%= iordh.sort_if_enabled(field_attribute(attr)) %>
         </th>
       <% end %>
       <th>Actions</th>
@@ -37,6 +34,4 @@
     <% end %>
   </tbody>
 </table>
-<% if iord_features.include? :paginate -%>
-  <%= iordh.pagination %>
-<% end -%>
+<%= iordh.paginate_if_enabled %>

@@ -1,3 +1,6 @@
+## 0.8 - Search
+* Added search method module
+
 ## 0.7 - Sort
 * Added sort methods for resource attributes
 
