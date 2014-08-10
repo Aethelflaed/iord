@@ -14,6 +14,19 @@ en:
       new: 'New %{model}'
       edit: 'Edit %{model}'
       show: 'Details for %{model}'
+    paginate:
+      page: 'Page:'
+    search:
+      select_field: 'Select a field'
+      reset: 'Reset search'
+      submit: 'Search'
+      operand:
+        eq: 'Equal'
+        lt: 'Lower than'
+        lte: 'Lower or equal'
+        gt: 'Greater than'
+        gte: 'Greater or equal'
+        like: 'Like'
     alert:
       destroy: 'Are you sure?'
     flash:

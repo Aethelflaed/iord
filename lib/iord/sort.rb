@@ -2,6 +2,10 @@ require 'active_support/concern'
 
 module Iord
   class OutputHelper
+    def sort_if_enabled(attribute)
+      order_by(attribute) if v.iord_features.include? :sort
+    end
+
     def order_by(attribute)
       content = String.new
       if v.resource_class.attribute_names.include? attribute.to_s

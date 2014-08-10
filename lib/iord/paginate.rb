@@ -2,11 +2,16 @@ require 'active_support/concern'
 
 module Iord
   class OutputHelper
+    def paginate_if_enabled
+      pagination if v.iord_features.include? :paginate
+    end
+
     def pagination
       limit = v.limit
       offset = v.offset
       count = v.count
-      page_div = %Q[<div class="page">]
+      page_div = %q[<p class="page">]
+      page_div += %Q[#{v.t('iord.paginate.page')} ]
 
       if offset - limit + 1 > 0
         page_div += v.link_to "<", v.collection_url(offset: offset - limit)
@@ -27,7 +32,7 @@ module Iord
         page_div += v.link_to ">", v.collection_url(offset: offset + limit)
       end
 
-      page_div += %Q[</div>]
+      page_div += %Q[</p>]
       return page_div.html_safe
     end
 
