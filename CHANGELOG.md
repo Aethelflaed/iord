@@ -1,3 +1,7 @@
+## 0.8.1 - Search relations
+* Search now works also with relations, compairing to the value returned by to_s.
+You might have to optimize your requests using `includes` and add a `to_s` method on the relation.
+
 ## 0.8 - Search
 * Added search method module
 
