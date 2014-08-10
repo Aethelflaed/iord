@@ -9,7 +9,7 @@ module Iord
     def search_form
       v.form_tag(v.collection_url, method: :get, class: 'search') do
         search_term +
-          search_operand +
+          search_operator +
           search_value +
           search_submit
       end
@@ -22,7 +22,7 @@ module Iord
       else
         html += %Q[<option value="">#{v.t('iord.search.reset')}</option>]
       end
-      v.resource_class.attribute_names.each do |attr|
+      v.resource_attribute_names.each do |attr|
         html += %Q[<option value="#{attr}"]
         html += %q[ selected="selected"] if attr == v.search_term
         html += %Q[>#{attr.humanize}</option>] if attr != '_id'
@@ -32,12 +32,12 @@ module Iord
       return html.html_safe
     end
 
-    def search_operand
-      html = %q[<select name="op" id="search_operand">]
-      v.search_operands.each do |op|
+    def search_operator
+      html = %q[<select name="op" id="search_operator">]
+      v.search_operators.each do |op|
         html += %Q[<option value="#{op}"]
-        html += %q[ selected="selected"] if op == v.search_operand
-        html += %Q[>#{v.t("iord.search.operand.#{op}")}</option>]
+        html += %q[ selected="selected"] if op == v.search_operator
+        html += %Q[>#{v.t("iord.search.operator.#{op}")}</option>]
       end
       html += %q[</select>]
       return html.html_safe
@@ -62,8 +62,8 @@ module Iord
 
       helper_method :search_term
       helper_method :search_value
-      helper_method :search_operand
-      helper_method :search_operands
+      helper_method :search_operator
+      helper_method :search_operators
     end
 
     module ClassMethods
@@ -75,7 +75,7 @@ module Iord
     def search_term
       if @search_term.nil?
         @search_term = params[:q]
-        @search_term = nil unless resource_class.attribute_names.include? @search_term
+        @search_term = nil unless resource_attribute_names.include? @search_term
         collection_url_defaults[:q] = @search_term if @search_term
       end
       return @search_term
@@ -91,31 +91,57 @@ module Iord
       return @search_value
     end
 
-    def search_operands
-      @search_operands ||= %i(eq lt lte gt gte like)
+    def search_operators
+      @search_operators ||= %i(eq lt lte gt gte like)
     end
 
-    def search_operand
-      if @search_operand.nil?
-        return @search_operand = nil if search_term.nil?
-        @search_operand = (params[:op] || :eq).to_sym
-        @search_operand = :eq unless search_operands.include? @search_operand
+    def search_operator
+      if @search_operator.nil?
+        return @search_operator = nil if search_term.nil?
+        @search_operator = (params[:op] || :eq).to_sym
+        @search_operator = :eq unless search_operators.include? @search_operator
 
-        collection_url_defaults[:op] = @search_operand if @search_operand
+        collection_url_defaults[:op] = @search_operator if @search_operator
       end
-      return @search_operand
+      return @search_operator
     end
 
     def create_collection_with_search
       collection = create_collection_without_search
       if search_term
-        if search_operand == :like
-          collection = collection.where(search_term => /.*#{search_value}.*/i)
-        else
-          collection = collection.where(search_term => {"$#{search_operand}" => search_value})
+        rhs = search_value
+        rhs = /.*#{search_value}.*/i if search_operator == :like
+        collection = collection.select do |x|
+          SearchOperator.send search_operator, x.public_send(search_term), rhs
         end
       end
       return collection
+    end
+
+    class SearchOperator
+      def self.eq(lhs, rhs)
+        lhs.to_s == rhs.to_s
+      end
+
+      def self.lt(lhs, rhs)
+        lhs.to_s < rhs.to_s
+      end
+
+      def self.lte(lhs, rhs)
+        lhs.to_s <= rhs.to_s
+      end
+
+      def self.gt(lhs, rhs)
+        lhs.to_s > rhs.to_s
+      end
+
+      def self.gte(lhs, rhs)
+        lhs.to_s >= rhs.to_s
+      end
+
+      def self.like(lhs, rhs)
+        rhs.match(lhs.to_s)
+      end
     end
   end
 end

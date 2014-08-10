@@ -20,7 +20,7 @@ en:
       select_field: 'Select a field'
       reset: 'Reset search'
       submit: 'Search'
-      operand:
+      operator:
         eq: 'Equal'
         lt: 'Lower than'
         lte: 'Lower or equal'

@@ -9,5 +9,9 @@ class Category
   validates_associated :products
 
   accepts_nested_attributes_for :products, allow_destroy: true
+
+  def to_s
+    name
+  end
 end
 

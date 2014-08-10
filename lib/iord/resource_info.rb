@@ -11,6 +11,7 @@ module Iord
       helper_method :collection_name
       helper_method :resource_path
       helper_method :action_path
+      helper_method :resource_attribute_names
 
       cattr_accessor :resource_namespace, instance_accesssor: false do
         false
@@ -48,6 +49,11 @@ module Iord
       @action_path
     end
 
+    def resource_attribute_names
+      build_resource_info unless @resource_attribute_names
+      @resource_attribute_names
+    end
+
     def build_resource_info
       return if @resource_class
       controller_name = self.class.name[0..-11]
@@ -77,6 +83,17 @@ module Iord
       if controller_path.rindex('/')
         path = controller_path[0..controller_path.rindex('/')-1]
         @resource_path = path.split('/').map { |i| i.to_sym }
+      end
+
+      @resource_attribute_names = @resource_class.attribute_names.map do |attr|
+        case attr
+        when "_id"
+          "id"
+        when /.+_id/
+          attr[0..-4]
+        else
+          attr
+        end
       end
     end
   end
