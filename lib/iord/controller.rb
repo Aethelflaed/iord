@@ -7,8 +7,11 @@ require 'iord/crud'
 require 'iord/attributes'
 require 'iord/fields'
 require 'iord/resolver'
+
+# Not included, but made available
 require 'iord/paginate'
 require 'iord/sort'
+require 'iord/search'
 
 # Information Oriented Representation of Data
 module Iord
