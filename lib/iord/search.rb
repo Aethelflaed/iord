@@ -66,6 +66,12 @@ module Iord
       helper_method :search_operands
     end
 
+    module ClassMethods
+      def create_collection_returns_array?
+        true
+      end
+    end
+
     def search_term
       if @search_term.nil?
         @search_term = params[:q]

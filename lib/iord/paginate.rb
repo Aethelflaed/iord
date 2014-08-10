@@ -47,6 +47,10 @@ module Iord
     included do
       alias_method_chain :create_collection, :pagination
 
+      if create_collection_returns_array?
+        raise RuntimeError.new "Paginate cannot work with array collection."
+      end
+
       helper_method :limit
       helper_method :offset
       helper_method :count
