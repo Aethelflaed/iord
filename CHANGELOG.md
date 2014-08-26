@@ -1,3 +1,6 @@
+## 0.8.5
+* Added more standard support for search operators like and equal
+
 ## 0.8.4
 * `link` can now optionally be called too
 * Bugfix in search

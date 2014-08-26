@@ -41,7 +41,7 @@ class ProductsControllerTest < ActionController::TestCase
     assert collection.count > 0
     assert collection.count < Product.count, "The search has not been performed"
 
-    get :index, q: :name, v: 'value'
+    get :index, q: :name, v: 'value', op: :eq
     assert_response :success
     collection = assigns(:collection)
     assert collection.count > 0

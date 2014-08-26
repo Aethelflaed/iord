@@ -90,7 +90,7 @@ module Iord
     end
 
     def search_operator
-      if @search_operator.nil?
+      if @search_operator.nil? or (params[:op] ? @search_operator != params[:op].to_s : false)
         return @search_operator = nil if search_term.nil?
         @search_operator = (params[:op] || :eq).to_sym
         @search_operator = :eq unless search_operators.include? @search_operator
@@ -104,7 +104,9 @@ module Iord
       collection = create_collection_without_search
       if search_term
         if search_operator == :like
-          collection = collection.where(search_term => /.*#{search_value}.*/i)
+          collection = collection.where(search_term => {"$regex" => ".*#{search_value}.*", "$options" => "i"} )
+        elsif search_operator == :eq
+          collection = collection.where(search_term => search_value)
         else
           collection = collection.where(search_term => {"$#{search_operator}" => search_value})
         end
