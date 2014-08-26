@@ -66,12 +66,6 @@ module Iord
       helper_method :search_operators
     end
 
-    module ClassMethods
-      def create_collection_returns_array?
-        true
-      end
-    end
-
     def search_term
       if @search_term.nil?
         @search_term = params[:q]
@@ -109,39 +103,13 @@ module Iord
     def create_collection_with_search
       collection = create_collection_without_search
       if search_term
-        rhs = search_value
-        rhs = /.*#{search_value}.*/i if search_operator == :like
-        collection = collection.select do |x|
-          SearchOperator.send search_operator, x.public_send(search_term), rhs
+        if search_operator == :like
+          collection = collection.where(search_term => /.*#{search_value}.*/i)
+        else
+          collection = collection.where(search_term => {"$#{search_operand}" => search_value})
         end
       end
       return collection
-    end
-
-    class SearchOperator
-      def self.eq(lhs, rhs)
-        lhs.to_s == rhs.to_s
-      end
-
-      def self.lt(lhs, rhs)
-        lhs.to_s < rhs.to_s
-      end
-
-      def self.lte(lhs, rhs)
-        lhs.to_s <= rhs.to_s
-      end
-
-      def self.gt(lhs, rhs)
-        lhs.to_s > rhs.to_s
-      end
-
-      def self.gte(lhs, rhs)
-        lhs.to_s >= rhs.to_s
-      end
-
-      def self.like(lhs, rhs)
-        rhs.match(lhs.to_s)
-      end
     end
   end
 end

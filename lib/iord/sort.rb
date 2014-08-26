@@ -31,10 +31,6 @@ module Iord
     included do
       alias_method_chain :create_collection, :sort
 
-      if create_collection_returns_array?
-        raise RuntimeError.new "Sort cannot work with array collection."
-      end
-
       iord_features << :sort
     end
 

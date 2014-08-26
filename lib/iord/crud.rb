@@ -15,10 +15,6 @@ module Iord
         raise ArgumentError, "block expected" unless block_given?
         self.crud_response_formats = self.crud_response_formats << Proc.new
       end
-
-      def create_collection_returns_array?
-        false
-      end
     end
 
     def create_collection

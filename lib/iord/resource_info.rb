@@ -85,16 +85,7 @@ module Iord
         @resource_path = path.split('/').map { |i| i.to_sym }
       end
 
-      @resource_attribute_names = @resource_class.attribute_names.map do |attr|
-        case attr
-        when "_id"
-          "id"
-        when /.+_id/
-          attr[0..-4]
-        else
-          attr
-        end
-      end
+      @resource_attribute_names = @resource_class.attribute_names.map { |x| x == "_id" ? "id" : x }
     end
   end
 end
