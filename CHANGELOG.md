@@ -1,3 +1,6 @@
+## 0.8.3
+* `link` attribute now accepts Proc objects for `label` and `url`
+
 ## 0.8.2
 * Some code improvements on search
 
