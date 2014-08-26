@@ -106,7 +106,7 @@ module Iord
         if search_operator == :like
           collection = collection.where(search_term => /.*#{search_value}.*/i)
         else
-          collection = collection.where(search_term => {"$#{search_operand}" => search_value})
+          collection = collection.where(search_term => {"$#{search_operator}" => search_value})
         end
       end
       return collection

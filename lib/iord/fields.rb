@@ -33,7 +33,9 @@ module Iord
       attr.keys[0]
     end
 
-    def field_name(attr)
+    def field_name(resource, attr = nil)
+      attr = resource if attr.nil?
+
       return "id"           if attr == :_id
       # default, simply return name
       return attr           unless attr.is_a? Hash
@@ -42,7 +44,14 @@ module Iord
       return attr[:object]  if attr.has_key? :object
       return attr[:array]   if attr.has_key? :array
       return attr[:value]   if attr.has_key? :value
-      return attr[:link]    if attr.has_key? :link
+
+      if attr.has_key? :link
+        if attr[:link].respond_to? :call
+          return attr[:link].call(resource, attr)
+        else
+          return attr[:link]
+        end
+      end
 
       attr.keys[0]
     end

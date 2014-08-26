@@ -1,3 +1,7 @@
+## 0.8.4
+* `link` can now optionally be called too
+* Bugfix in search
+
 ## 0.8.3
 * `link` attribute now accepts Proc objects for `label` and `url`
 
