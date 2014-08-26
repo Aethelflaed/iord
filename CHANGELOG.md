@@ -1,3 +1,6 @@
+## 0.8.2
+* Some code improvements on search
+
 ## 0.8 - Search
 * Added search method module
 
