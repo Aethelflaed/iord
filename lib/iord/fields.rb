@@ -148,10 +148,11 @@ module Iord
       elsif attr.has_key? :image
         o.image resource.public_send(*attr[:image]), attr[:params]
       elsif attr.has_key? :link
-        attr[:label] = attr[:label].call(resource, attr) if attr[:label].respond_to? :call
-        attr[:url] = attr[:url].call(resource, attr) if attr[:url].respond_to? :call
+        label, url = attr[:label], attr[:url]
+        label = attr[:label].call(resource, attr) if attr[:label].respond_to? :call
+        url = attr[:url].call(resource, attr) if attr[:url].respond_to? :call
 
-        o.link_to attr[:label], attr[:url], attr[:params]
+        o.link_to label, url, attr[:params]
       else
         field_value(resource.public_send(attr.keys[0]), attr.values[0])
       end
