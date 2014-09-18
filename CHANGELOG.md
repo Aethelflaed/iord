@@ -1,3 +1,6 @@
+## 0.8.6
+* Fixed link as proc / lambda not working
+
 ## 0.8.5
 * Added more standard support for search operators like and equal
 
