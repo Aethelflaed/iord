@@ -49,7 +49,7 @@ module Iord
         if options == true
           options = collection_url_defaults
         else
-          options = collection_url_defaults.merge options
+          options = collection_url_defaults.merge(options)
         end
         return self.public_send collection_url_method, options
       else

@@ -7,6 +7,7 @@ class ProductsController < ApplicationController
   include Iord::Sort
   include Iord::Paginate
   include Iord::Search
+  include Iord::Iterable
 
   def index_attrs
     show_attrs

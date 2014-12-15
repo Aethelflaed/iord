@@ -17,6 +17,21 @@ class ProductsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test 'should get iterate' do
+    get :iterate
+    assert_response :success
+  end
+
+  test 'should iterate first show' do
+    get :iterate, pos: 0
+    assert_response :success
+  end
+
+  test 'should iterate first edit' do
+    get :iterate, pos: 0, edit: true
+    assert_response :success
+  end
+
   test "should get index sorted" do
     get :index, order_by: :quantity
     assert_response :success

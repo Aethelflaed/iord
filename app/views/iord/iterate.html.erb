@@ -1,0 +1,11 @@
+<h2><%= t('iord.titles.iterate', models: collection_name) %></h1>
+<%= iordh.iterate_form %>
+<br />
+<br />
+<% if @resource -%>
+  <%= render (iterate_edition ? 'form' : 'show')%>
+  <br />
+  <%= iordh.link_to_iterate_next_if_possible %>
+  <%= iordh.link_to_iterate_previous_if_possible %>
+<% end -%>
+

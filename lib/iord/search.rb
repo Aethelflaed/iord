@@ -3,7 +3,7 @@ require 'active_support/concern'
 module Iord
   class OutputHelper
     def search_if_enabled
-      search_form if v.iord_features.include? :search
+      search_form if v.iord_features.include?(:search)
     end
 
     def search_form
@@ -18,9 +18,9 @@ module Iord
     def search_term
       html = %q[<select name="q" id="search_term">]
       if v.search_term.nil?
-        html += %Q[<option value="">#{v.t('iord.search.select_field')}</option>]
+        html += %Q[<option value="">#{v.t('iord.text.select_field')}</option>]
       else
-        html += %Q[<option value="">#{v.t('iord.search.reset')}</option>]
+        html += %Q[<option value="">#{v.t('iord.text.reset')}</option>]
       end
       v.resource_attribute_names.each do |attr|
         html += %Q[<option value="#{attr}"]
@@ -48,7 +48,7 @@ module Iord
     end
 
     def search_submit
-      v.submit_tag(v.t('iord.search.submit'), name: "")
+      v.submit_tag(v.t('iord.buttons.search'), name: '')
     end
   end
 

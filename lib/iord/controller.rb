@@ -12,6 +12,7 @@ require 'iord/resolver'
 require 'iord/paginate'
 require 'iord/sort'
 require 'iord/search'
+require 'iord/iterable'
 
 # Information Oriented Representation of Data
 module Iord

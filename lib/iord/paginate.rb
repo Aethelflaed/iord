@@ -11,7 +11,7 @@ module Iord
       offset = v.offset
       count = v.count
       page_div = %q[<p class="page">]
-      page_div += %Q[#{v.t('iord.paginate.page')} ]
+      page_div += %Q[#{v.t('iord.text.page')} ]
 
       if offset - limit + 1 > 0
         page_div += v.link_to "<", v.collection_url(offset: offset - limit)

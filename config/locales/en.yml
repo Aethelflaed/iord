@@ -9,17 +9,25 @@ en:
       create: 'Create'
       remove: 'Remove this %{model}'
       add: 'Add a %{model}'
+      iterate: 'Iterate'
+      search: 'Search'
     titles:
+      iterate: 'Iterate over %{models}'
       list: 'Listing %{models}'
       new: 'New %{model}'
       edit: 'Edit %{model}'
       show: 'Details for %{model}'
-    paginate:
-      page: 'Page:'
-    search:
+    text:
+      order_by: 'Order by'
+      sort_mode: 'Sort mode'
+      page: 'Page: '
       select_field: 'Select a field'
-      reset: 'Reset search'
-      submit: 'Search'
+      reset: 'Reset'
+      edit: 'Edit'
+    order_by:
+      asc: 'Ascending'
+      desc: 'Descending'
+    search:
       operator:
         eq: 'Equal'
         lt: 'Lower than'
@@ -40,5 +48,4 @@ en:
     errors:
       error: 'error'
       explanation: '%{errors} prohibited this object from being saved.'
-          
 

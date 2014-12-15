@@ -1,3 +1,6 @@
+## 0.9
+* Added Iterable module
+
 ## 0.8.6
 * Fixed link as proc / lambda not working
 

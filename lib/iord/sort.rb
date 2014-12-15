@@ -32,6 +32,9 @@ module Iord
       alias_method_chain :create_collection, :sort
 
       iord_features << :sort
+
+      helper_method :order_by
+      helper_method :sort_mode
     end
 
     def order_by

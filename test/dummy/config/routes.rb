@@ -1,5 +1,3 @@
-require 'iord'
-
 Dummy::Application.routes.draw do
   resource :administrator
 
@@ -7,6 +5,9 @@ Dummy::Application.routes.draw do
   resources :categories
   resources :users
   resources :products do
+    collection do
+      get :iterate, action: :iterate, as: :iterate
+    end
     resource :manager
     resources :comments do
       resources :comments, controller: 'subcomments'
