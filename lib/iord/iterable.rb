@@ -36,8 +36,8 @@ module Iord
           html +=
             search_term +
             search_operator +
-            search_value +
-            '<br/>'
+            search_value
+          html += '<br/>'
         end
 
         html += %Q[<label for="order_by">#{v.t('iord.text.order_by')}</label>]
@@ -65,9 +65,10 @@ module Iord
         html += %q[<input type="checkbox" name="edit" id="edit" />]
         html += '<br/>'
 
+        html += %Q[<input type="hidden" name="pos" value="0" />]
         html += v.submit_tag(v.t('iord.buttons.iterate'), name: '')
 
-        return html.html_safe
+        html.html_safe
       end
     end
   end
