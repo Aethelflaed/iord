@@ -32,6 +32,16 @@ class ProductsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test 'should iterate edit first and next' do
+    url = iterate_products_url(edit: true, limit: 25, pos: 1)
+    patch :iterate, pos: 0, edit: 'true', product: {name: 'Hello'}, go_to: url.to_s
+    assert_redirected_to url
+
+    url = iterate_products_url(edit: true, limit: 25, pos: 0)
+    patch :iterate, pos: 1, edit: 'true', product: {name: 'Hello'}, go_to: url.to_s
+    assert_redirected_to url
+  end
+
   test "should get index sorted" do
     get :index, order_by: :quantity
     assert_response :success

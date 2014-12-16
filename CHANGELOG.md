@@ -1,4 +1,7 @@
-## 0.9
+## 0.9.1
+* Improved iterable
+
+## 0.9 - Iterable
 * Added Iterable module
 
 ## 0.8.6

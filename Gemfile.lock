@@ -11,7 +11,7 @@ GIT
 PATH
   remote: .
   specs:
-    iord (0.9)
+    iord (0.9.1)
       hooks (~> 0.3.3)
       nested_form (~> 0.3.2)
       rails (~> 4.0)
@@ -65,7 +65,8 @@ GEM
     faker (1.2.0)
       i18n (~> 0.5)
     hike (1.2.3)
-    hooks (0.3.3)
+    hooks (0.3.6)
+      uber (~> 0.0.4)
     i18n (0.6.9)
     jquery-rails (3.1.0)
       railties (>= 3.0, < 5.0)
@@ -128,6 +129,7 @@ GEM
       polyglot
       polyglot (>= 0.3.1)
     tzinfo (0.3.38)
+    uber (0.0.11)
 
 PLATFORMS
   ruby
@@ -141,5 +143,6 @@ DEPENDENCIES
   iord!
   jquery-rails (~> 3.1.0)
   mongoid!
+  nested_form
   pry-nav
   pry-rails

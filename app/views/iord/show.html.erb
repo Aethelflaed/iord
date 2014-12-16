@@ -1,1 +1,8 @@
-<%= render 'show' %>
+<h1><%= t('iord.titles.show', model: resource_name) %></h1>
+<%= iordh.display(@resource, show_attrs) %>
+<%= iordh.link_to_edit %>
+<% if has_collection? -%>
+  &nbsp;
+  <%= iordh.link_to_collection %>
+<% end -%>
+

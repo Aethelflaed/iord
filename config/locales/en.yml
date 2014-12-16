@@ -11,6 +11,8 @@ en:
       add: 'Add a %{model}'
       iterate: 'Iterate'
       search: 'Search'
+      next: 'Next'
+      previous: 'Previous'
     titles:
       iterate: 'Iterate over %{models}'
       list: 'Listing %{models}'
@@ -42,6 +44,7 @@ en:
         notice: '%{model} has been successfully created!'
       update:
         notice: '%{model} has been successfully updated!'
+        alert: '%{model} failed to be updated!'
       destroy:
         notice: '%{model} has been successfully destroyed!'
         alert: '%{model} failed to be destroyed!'

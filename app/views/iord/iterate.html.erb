@@ -1,11 +1,26 @@
 <h2><%= t('iord.titles.iterate', models: collection_name) %></h1>
+<%= iordh.link_to_collection %>
+<br />
 <%= iordh.iterate_form %>
 <br />
 <br />
 <% if @resource -%>
-  <%= render (iterate_edition ? 'form' : 'show')%>
-  <br />
-  <%= iordh.link_to_iterate_next_if_possible %>
-  <%= iordh.link_to_iterate_previous_if_possible %>
+  <% if iterate_edition -%>
+    <%= nested_form_for([*(resource_path + [@resource])], as: resource_name_u, url: iterate_url(true), method: :patch) do |f| %>
+      <% if @resource.errors.any? -%>
+        <div id="error_explanation">
+          <h3><%= t('iord.errors.explanation', errors: pluralize(@resource.errors.count, t('iord.errors.error'))) %></h3>
+        </div>
+      <% end %>
+      <%= iordh.fieldset(@form_title, edit_attrs, f) { iordh.submit_to_previous_if_possible(f) + iordh.submit_to_next_if_possible(f) } %>
+    <% end -%>
+    <%= iordh.link_to_iterate_show %>
+  <% else -%>
+    <%= iordh.display(@resource, show_attrs) %>
+    <%= iordh.link_to_iterate_edit %>
+    <br />
+    <%= iordh.link_to_iterate_previous_if_possible %>
+    <%= iordh.link_to_iterate_next_if_possible %>
+  <% end -%>
 <% end -%>
 

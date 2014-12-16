@@ -11,22 +11,36 @@ module Iord
                 class: 'btn btn-default')
     end
 
+    def link_to_iterate_show
+      v.link_to(v.t('iord.buttons.show'), v.iterate_url(edit: false),
+                class: 'btn btn-default')
+    end
+
+    def link_to_iterate_edit
+      v.link_to(v.t('iord.buttons.edit'), v.iterate_url(edit: true),
+                class: 'btn btn-default')
+    end
+
     def link_to_iterate_next_if_possible
-      link_to_iterate_next if v.pos < v.collection_count - 1
-    end
-
-    def link_to_iterate_previous_if_possible
-      link_to_iterate_previous if v.pos > 0
-    end
-
-    def link_to_iterate_next
+      return if v.pos >= v.collection_count - 1
       v.link_to(v.t('iord.buttons.next'), v.iterate_url(pos: v.pos + 1),
                 class: 'btn btn-default')
     end
 
-    def link_to_iterate_previous
+    def link_to_iterate_previous_if_possible
+      return if v.pos <= 0
       v.link_to(v.t('iord.buttons.previous'), v.iterate_url(pos: v.pos - 1),
                 class: 'btn btn-default')
+    end
+
+    def submit_to_next_if_possible(form)
+      return ''.html_safe if v.pos >= v.collection_count - 1
+      %Q[<div class="actions">#{form.button v.t('iord.buttons.next'), value: v.iterate_url(pos: v.pos + 1), name: 'go_to', class: 'btn btn-default'}</div>].html_safe
+    end
+
+    def submit_to_previous_if_possible(form)
+      return ''.html_safe if v.pos <= 0
+      %Q[<div class="actions">#{form.button v.t('iord.buttons.previous'), value: v.iterate_url(pos: v.pos - 1), name: 'go_to', class: 'btn btn-default'}</div>].html_safe
     end
 
     def iterate_form
@@ -62,7 +76,7 @@ module Iord
         html += '<br/>'
 
         html += %Q[<label for="edit">#{v.t('iord.text.edit')}</label>]
-        html += %q[<input type="checkbox" name="edit" id="edit" />]
+        html += %q[<input type="checkbox" value="true" name="edit" id="edit" />]
         html += '<br/>'
 
         html += %Q[<input type="hidden" name="pos" value="0" />]
@@ -79,8 +93,6 @@ module Iord
     include Sort
 
     included do
-      resource_actions :iterate
-
       iord_features << :iterable
 
       helper_method :pos
@@ -91,7 +103,7 @@ module Iord
 
     def iterate_edition
       if @iterate_edition.nil?
-        @iterate_edition = params[:edit] ? true : false
+        @iterate_edition = params[:edit] == 'true'
         collection_url_defaults[:edit] = @iterate_edition
       end
       return @iterate_edition
@@ -138,6 +150,18 @@ module Iord
         @pos = nil
       end
       collection_url_defaults[:pos] = @pos
+
+      if iterate_edition and request.request_method == 'PATCH'
+        @pos = 0 if @pos.nil?
+        @resource.update_attributes(resource_params)
+        if @resource.save
+          flash[:notice] = t('iord.flash.update.notice', model: resource_name)
+          redirect_to params[:go_to]
+          return
+        else
+          flash[:alert] = t('iord.flash.update.alert', model: resource_name)
+        end
+      end
     end
   end
 end

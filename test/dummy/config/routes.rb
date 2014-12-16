@@ -7,6 +7,7 @@ Dummy::Application.routes.draw do
   resources :products do
     collection do
       get :iterate, action: :iterate, as: :iterate
+      patch :iterate, action: :iterate
     end
     resource :manager
     resources :comments do

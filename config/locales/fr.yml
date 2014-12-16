@@ -11,6 +11,8 @@ fr:
       add: 'Ajouter un %{model}'
       iterate: 'Itérer'
       search: 'Rechercher'
+      next: 'Suivant'
+      previous: 'Précédent'
     titles:
       iterate: 'Itérer sur les %{models}'
       list: 'Liste des %{models}'
@@ -39,12 +41,13 @@ fr:
       destroy: 'Êtes-vous sûr?'
     flash:
       create:
-        notice: '%{model} a bien été créé!'
+        notice: '%{model} a bien été créé !'
       update:
-        notice: '%{model} a bien été modifié!'
+        notice: '%{model} a bien été modifié !'
+        alert: "%{model} n'a pas été modifié !"
       destroy:
-        notice: '%{model} a bien été supprimé!'
-        alert: "%{model} n'a pas été supprimé!"
+        notice: '%{model} a bien été supprimé !'
+        alert: "%{model} n'a pas été supprimé !"
     errors:
       error: 'erreur'
       explanation: "%{errors} empêche cet object d'être sauvegarder."
