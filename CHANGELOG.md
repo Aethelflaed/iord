@@ -1,3 +1,8 @@
+## 1.0
+* API change!
+* All CRUD bang methods have been removed
+* CRUD methods now calling `action_`resource or `action_`collection for personalization
+
 ## 0.9.1
 * Improved iterable
 

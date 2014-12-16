@@ -153,13 +153,11 @@ module Iord
 
       if iterate_edition and request.request_method == 'PATCH'
         @pos = 0 if @pos.nil?
-        @resource.update_attributes(resource_params)
+        update_resource
         if @resource.save
           flash[:notice] = t('iord.flash.update.notice', model: resource_name)
           redirect_to params[:go_to]
           return
-        else
-          flash[:alert] = t('iord.flash.update.alert', model: resource_name)
         end
       end
     end

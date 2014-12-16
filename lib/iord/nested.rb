@@ -31,12 +31,11 @@ module Iord
         default(:parent_resource_name) || resource_name_u.to_sym
     end
 
-    def index
+    def index_collection
       @collection = @parent.public_send(parent_collection_name)
-      index!
     end
 
-    def create
+    def create_resource
       @resource = resource_class.new resource_params
       if @parent.respond_to? "#{parent_resource_name}=".to_sym
         @parent.public_send "#{parent_resource_name}=".to_sym, @resource
@@ -44,8 +43,6 @@ module Iord
         collection = @parent.public_send parent_collection_name
         collection << @resource
       end
-
-      create!
     end
 
     def resource_url_with_nested(resource = nil)

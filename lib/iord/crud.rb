@@ -21,58 +21,58 @@ module Iord
       resource_class.all
     end
 
-    def index
+    def index_collection
       @collection = create_collection
-      index!
     end
-    def index!
+    def index
+      index_collection
       respond_to do |format|
         format.html { render }
         formats(format)
       end
     end
 
+    def show_resource
+    end
     def show
-      show!
-    end
-    def show!
+      show_resource
       respond_to do |format|
         format.html { render }
         formats(format)
       end
     end
 
-    def new
+    def new_resource
       @resource = resource_class.new
       resource_class.relations.each do |name, rel|
         if rel.autosave and @resource.respond_to? "build_#{name}".to_sym
           @resource.public_send "build_#{name}".to_sym
         end
       end
-      new!
     end
-    def new!
+    def new
+      new_resource
       respond_to do |format|
         format.html { render }
         formats(format)
       end
     end
 
+    def edit_resource
+    end
     def edit
-      edit!
-    end
-    def edit!
+      edit_resource
       respond_to do |format|
         format.html { render }
         formats(format)
       end
     end
 
-    def create
+    def create_resource
       @resource = resource_class.new resource_params
-      create!
     end
-    def create!
+    def create
+      create_resource
       result = @resource.save
       respond_to do |format|
         if result
@@ -86,11 +86,11 @@ module Iord
       return result
     end
 
-    def update
-      @resource.update_attributes resource_params
-      update!
+    def update_resource
+      @resource.update_attributes(resource_params)
     end
-    def update!
+    def update
+      update_resource
       result = @resource.save
       respond_to do |format|
         if result
@@ -104,11 +104,11 @@ module Iord
       return result
     end
 
-    def destroy
-      destroy!
+    def destroy_resource
+      @resource.destroy!
     end
-    def destroy!
-      result = @resource.destroy
+    def destroy
+      result = destroy_resource
       respond_to do |format|
         if result
           flash[:notice] = t('iord.flash.destroy.notice', model: resource_name)

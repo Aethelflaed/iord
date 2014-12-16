@@ -5,27 +5,27 @@ module Iord
     extend ActiveSupport::Concern
 
     included do
-      alias_method_chain :create!, :hooks
-      alias_method_chain :update!, :hooks
-      alias_method_chain :destroy!, :hooks
+      alias_method_chain :create_resource, :hooks
+      alias_method_chain :update_resource, :hooks
+      alias_method_chain :destroy_resource, :hooks
     end
 
-    def create_with_hooks!
-      if create_without_hooks!
-        execute_hook(resource_name_u, :create)
-      end
+    def create_resource_with_hooks
+      result = create_resource_without_hooks
+      execute_hook(resource_name_u, :create)
+      result
     end
 
-    def update_with_hooks!
-      if update_without_hooks!
-        execute_hook(resource_name_u, :update)
-      end
+    def update_resource_with_hooks
+      result = update_resource_without_hooks
+      execute_hook(resource_name_u, :update)
+      result
     end
 
-    def destroy_with_hooks!
-      if destroy_without_hooks!
-        execute_hook(resource_name_u, :destroy)
-      end
+    def destroy_resource_with_hooks
+      result = destroy_resource_without_hooks
+      execute_hook(resource_name_u, :destroy)
+      result
     end
 
     def execute_hook(resource_name, action)
