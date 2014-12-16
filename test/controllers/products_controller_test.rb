@@ -71,6 +71,10 @@ class ProductsControllerTest < ActionController::TestCase
     collection = assigns(:collection)
     assert collection.count > 0
     assert collection.count < Product.count, "The search has not been performed"
+
+    get :index, q: :reference, v: '', op: :eq
+    assert_response :success
+    collection = assigns(:collection)
   end
 
   test "should get json index" do

@@ -1,3 +1,6 @@
+## 1.0.1
+* Search empty value now also search for nil
+
 ## 1.0
 * API change!
 * All CRUD bang methods have been removed

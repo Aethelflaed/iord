@@ -106,7 +106,11 @@ module Iord
         if search_operator == :like
           collection = collection.where(search_term => {"$regex" => ".*#{search_value}.*", "$options" => "i"} )
         elsif search_operator == :eq
-          collection = collection.where(search_term => search_value)
+          if search_value.empty?
+            collection = collection.where(search_term.to_sym.in => [nil, ''])
+          else
+            collection = collection.where(search_term => search_value)
+          end
         else
           collection = collection.where(search_term => {"$#{search_operator}" => search_value})
         end
