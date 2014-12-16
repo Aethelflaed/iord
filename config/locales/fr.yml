@@ -1,0 +1,51 @@
+fr:
+  iord:
+    buttons:
+      submit: 'Envoyer'
+      back: 'Retour'
+      show: 'Détails'
+      edit: 'Modifier'
+      destroy: 'Supprimer'
+      create: 'Créer'
+      remove: 'Retirer ce %{model}'
+      add: 'Ajouter un %{model}'
+      iterate: 'Itérer'
+      search: 'Rechercher'
+    titles:
+      iterate: 'Itérer sur les %{models}'
+      list: 'Liste des %{models}'
+      new: 'Nouveau %{model}'
+      edit: 'Modifier %{model}'
+      show: 'Détails de %{model}'
+    text:
+      order_by: 'Ordonner par'
+      sort_mode: 'Tri'
+      page: 'Page :'
+      select_field: 'Choisir un champ'
+      reset: 'Effacer la rechercher'
+      edit: 'Modifier'
+    order_by:
+      asc: 'Ascendant'
+      desc: 'Descendant'
+    search:
+      operator:
+        eq: 'Égale'
+        lt: 'Inférieur à'
+        lte: 'Inférieur ou égal'
+        gt: 'Supérieur à'
+        gte: 'Supérieur ou égale'
+        like: 'Semblable à'
+    alert:
+      destroy: 'Êtes-vous sûr?'
+    flash:
+      create:
+        notice: '%{model} a bien été créé!'
+      update:
+        notice: '%{model} a bien été modifié!'
+      destroy:
+        notice: '%{model} a bien été supprimé!'
+        alert: "%{model} n'a pas été supprimé!"
+    errors:
+      error: 'erreur'
+      explanation: "%{errors} empêche cet object d'être sauvegarder."
+
