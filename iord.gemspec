@@ -5,6 +5,7 @@ require "iord/version"
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
+  s.license     = 'MIT'
   s.name        = "iord"
   s.version     = Iord::VERSION
   s.authors     = ["Geoffroy Planquart"]
