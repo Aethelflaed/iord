@@ -10,9 +10,10 @@ module Iord
       helper_method :form_resource_url
       helper_method :resource_url
       helper_method :collection_url
-      helper_method :new_resource_url?
       helper_method :new_resource_url
+      helper_method :new_resource_url?
       helper_method :edit_resource_url
+      helper_method :edit_resource_url?
     end
 
     def has_collection?
@@ -59,7 +60,7 @@ module Iord
     end
 
     def new_resource_url_method
-      "new#{resource_url_method}".to_sym
+      @new_resource_url_method ||= "new_#{resource_url_method}".to_sym
     end
     def new_resource_url?
       self.respond_to?(new_resource_url_method)
@@ -68,10 +69,16 @@ module Iord
       @new_resource_url ||= self.public_send(new_resource_url_method)
     end
 
+    def edit_resource_url_method
+      @edit_resource_url_method ||= "edit_#{resource_url_method}".to_sym
+    end
+    def edit_resource_url?
+      self.respond_to?(edit_resource_url_method)
+    end
     def edit_resource_url(resource = nil)
       resource ||= @resource
       resource = nil unless has_collection?
-      self.public_send "edit_#{resource_url_method}".to_sym, resource
+      self.public_send(edit_resource_url_method, resource)
     end
   end
 end

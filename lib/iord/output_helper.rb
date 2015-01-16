@@ -72,8 +72,11 @@ module Iord
     end
 
     def link_to_edit(object = nil)
-      v.link_to(v.t('iord.buttons.edit'), v.edit_resource_url(object),
-                           class: 'btn btn-default')
+      if v.edit_resource_url?
+        v.link_to(v.t('iord.buttons.edit'),
+                  v.edit_resource_url(object),
+                  class: 'btn btn-default')
+      end
     end
 
     def link_to_destroy(object = nil)
