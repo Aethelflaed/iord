@@ -54,8 +54,11 @@ module Iord
     end
 
     def link_to_create()
-      v.link_to(v.t('iord.buttons.create'), v.new_resource_url,
-                           class: 'btn btn-default')
+      if v.new_resource_url?
+        v.link_to(v.t('iord.buttons.create'),
+                  v.new_resource_url,
+                  class: 'btn btn-default')
+      end
     end
 
     def link_to_collection()

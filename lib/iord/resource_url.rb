@@ -10,6 +10,7 @@ module Iord
       helper_method :form_resource_url
       helper_method :resource_url
       helper_method :collection_url
+      helper_method :new_resource_url?
       helper_method :new_resource_url
       helper_method :edit_resource_url
     end
@@ -57,8 +58,14 @@ module Iord
       end
     end
 
+    def new_resource_url_method
+      "new#{resource_url_method}".to_sym
+    end
+    def new_resource_url?
+      self.respond_to?(new_resource_url_method)
+    end
     def new_resource_url
-      @new_resource_url ||= self.public_send "new_#{resource_url_method}".to_sym
+      @new_resource_url ||= self.public_send(new_resource_url_method)
     end
 
     def edit_resource_url(resource = nil)
