@@ -8,6 +8,7 @@ require "sprockets/railtie"
 require "rails/test_unit/railtie"
 
 Bundler.require(*Rails.groups)
+require 'mongoid'
 require "iord"
 
 module Dummy

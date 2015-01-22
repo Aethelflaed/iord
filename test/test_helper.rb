@@ -1,27 +1,27 @@
-# Configure Rails Environment
-ENV["RAILS_ENV"] = "test"
+require 'bundler/setup'
+require 'simplecov'
+SimpleCov.configure do
+  add_filter '/test/'
+end
+SimpleCov.start if ENV['COVERAGE']
 
+require 'minitest/autorun'
+
+ENV['RAILS_ENV'] = 'test'
 require File.expand_path("../dummy/config/environment.rb",  __FILE__)
-require "rails/test_help"
-require 'database_cleaner'
-require 'faker'
+require 'rails/test_help'
 require 'factory_girl'
 require 'nested_form/view_helper'
 
-DatabaseCleaner.strategy = :truncation
-DatabaseCleaner.clean
+Mongoid::Sessions.default.use('mongoid_fixture_set_test').drop
 
+# FactoryGirl can't find definitions :/
+FactoryGirl.definition_file_paths = [File.expand_path('../factories', __FILE__)]
 FactoryGirl.find_definitions
 
 Rails.backtrace_cleaner.remove_silencers!
 
-# Load support files
-Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
-
-# Load fixtures from the engine
-if ActiveSupport::TestCase.method_defined?(:fixture_path=)
-  ActiveSupport::TestCase.fixture_path = File.expand_path("../fixtures", __FILE__)
-end
+ActiveSupport::TestCase.test_order = :random
 
 class ActiveSupport::TestCase
   include FactoryGirl::Syntax::Methods
