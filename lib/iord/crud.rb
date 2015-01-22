@@ -18,7 +18,10 @@ module Iord
     end
 
     def create_collection
-      resource_class.all
+      collection = resource_class.all
+      collection = collection.unscoped if default(:unscoped)
+      collection.includes(*Array(default(:includes))) if default(:includes)
+      collection
     end
 
     def index_collection
