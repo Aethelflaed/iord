@@ -1,3 +1,10 @@
+## 1.1.0
+* Defaults `unscoped` and `includes` for create_collection
+* Resource_attribute_names includes embedded documents, enabling search
+* Removed `hooks` dependency
+* Removed `o` helper, only using `iordh`
+* Simplified field_value for arrays, from `attr: { attrs: [] }` to `attrs: []`
+
 ## 1.0.1
 * Search empty value now also search for nil
 
