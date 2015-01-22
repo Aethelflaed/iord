@@ -16,7 +16,7 @@ module Iord
 
     attr_writer :o
     def o
-      @o ||= ::Iord::OutputHelper.new(view_context)
+      @o ||= OutputHelper.new(view_context)
     end
     alias_method :iordh, :o
 

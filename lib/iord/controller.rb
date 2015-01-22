@@ -1,5 +1,5 @@
 require 'active_support/concern'
-require 'hooks'
+
 require 'iord/defaults'
 require 'iord/resource_info'
 require 'iord/resource_url'
@@ -26,10 +26,7 @@ module Iord
     include Iord::Fields
 
     included do
-      include ::Hooks
-
       append_view_path Iord::Resolver.new
-      define_hook :before_set_resource
       before_action :set_resource
 
       cattr_accessor :resource_based_actions, instance_accesssor: false do
@@ -57,7 +54,6 @@ module Iord
 
     protected
     def set_resource
-      self.run_hook :before_set_resource
       return unless self.class.resource_based_actions.include? params[:action].to_sym
       if params[:id]
         @resource = resource_class.find params[:id]

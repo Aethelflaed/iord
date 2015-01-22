@@ -6,22 +6,24 @@ module Iord
     extend ActiveSupport::Concern
 
     included do
-      crud_response_format do |instance, format, action, hash|
+      crud_response_format do |instance, format, action, hsh|
         method = "json_#{action}".to_sym
         if instance.respond_to? method
           format.json do
-            instance.render(instance.public_send(method, hash))
+            instance.render(instance.public_send(method, hsh))
           end
         end
       end
 
-      before_set_resource do
-        if request.format.symbol == :json
-          self.o = ::Iord::JsonOutput.new(view_context)
-        end
-      end
-
       iord_features << :json
+    end
+
+    def o
+      if request.format.symbol == :json
+        @json_output ||= ::Iord::JsonOutput.new(view_context)
+      else
+        super
+      end
     end
 
     def json_index_attrs
@@ -36,30 +38,30 @@ module Iord
         show_attrs
     end
 
-    def json_index(hash)
+    def json_index(hsh)
       attrs = json_index_attrs
       attrs.unshift(:id) unless attrs.include? :id
       {json: o.display_array(@collection, attrs)}
     end
 
-    def json_show(hash)
+    def json_show(hsh)
       attrs = json_show_attrs
       attrs.unshift(:id) unless attrs.include? :id
       {json: o.display(@resource, attrs)}
     end
 
-    def json_create(hash)
-      {status: hash[:created] ? :created : :unprocessable_entity}.merge json_show(hash)
+    def json_create(hsh)
+      {status: hsh[:created] ? :created : :unprocessable_entity}.merge json_show(hsh)
     end
 
-    def json_update(hash)
-      {status: hash[:updated] ? :accepted : :unprocessable_entity}.merge json_show(hash)
+    def json_update(hsh)
+      {status: hsh[:updated] ? :accepted : :unprocessable_entity}.merge json_show(hsh)
     end
 
-    def json_destroy(hash)
+    def json_destroy(hsh)
       {
-        json: {status: hash[:destroyed] ? "ok" : "error"},
-        status: hash[:destroyed] ? :ok : :unprocessable_entity
+        json: {status: hsh[:destroyed] ? "ok" : "error"},
+        status: hsh[:destroyed] ? :ok : :unprocessable_entity
       }
     end
   end

@@ -90,6 +90,9 @@ class ProductsControllerTest < ActionController::TestCase
   test "should get json show" do
     get :show, id: @product, format: :json
     assert_response :success
+    assert_nothing_raised do
+      JSON.parse(response.body)
+    end
   end
 
   test "should get new" do
