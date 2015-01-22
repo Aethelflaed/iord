@@ -1,9 +1,7 @@
 $:.push File.expand_path("../lib", __FILE__)
 
-# Maintain your gem's version:
-require "iord/version"
+require 'iord/version'
 
-# Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
   s.license     = 'MIT'
   s.name        = "iord"
@@ -18,12 +16,8 @@ Gem::Specification.new do |s|
   s.test_files = Dir["test/**/*"]
 
   s.add_dependency 'rails', '~> 4.0'
-
-  s.add_runtime_dependency 'nested_form', '~> 0.3.2', '~> 0.3.2'
-  s.add_runtime_dependency 'hooks', '~> 0.3.3', '~> 0.3.3'
-
-  s.add_development_dependency 'jquery-rails', '~> 3.1.0'
-  s.add_development_dependency 'factory_girl_rails'
-  s.add_development_dependency 'database_cleaner'
-  s.add_development_dependency 'faker'
+  s.add_dependency 'mongoid', '~> 4.0'
+  s.add_dependency 'nested_form', '~> 0.3'
+  s.add_dependency 'hooks', '~> 0.3'
 end
+
