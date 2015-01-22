@@ -13,7 +13,7 @@ require 'rails/test_help'
 require 'factory_girl'
 require 'nested_form/view_helper'
 
-Mongoid::Sessions.default.use('mongoid_fixture_set_test').drop
+Mongoid::Sessions.default.use('iord_test').drop
 
 # FactoryGirl can't find definitions :/
 FactoryGirl.definition_file_paths = [File.expand_path('../factories', __FILE__)]
