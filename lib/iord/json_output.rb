@@ -3,26 +3,18 @@ require 'iord/output_helper'
 module Iord
   class JsonOutput < ::Iord::OutputHelper
     def display(object, attrs)
-      json = {}
-      attrs.each do |attr|
-        json[v.field_name(attr)] = v.field_value(object, attr)
-      end
-      return json
+      Hash[attrs.collect {|attr| [v.field_name(attr), v.field_value(object, attr)]}]
     end
 
     def display_array(array, attrs)
-      json = []
-      array.each do |element|
-        json << display(element, attrs)
-      end
-      return json
+      array.collect {|element| display(element, attrs) }
     end
 
-    def link_to(label, url, hash)
+    def link_to(label, url, hsh)
       {url: url, label: label}
     end
 
-    def image(url, hash)
+    def image(url, hsh)
       {image: url}
     end
   end

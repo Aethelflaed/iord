@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.description = "Easily create customizable CRUD based controllers with Information Oriented Representation of Data"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
-  s.test_files = Dir["test/**/*"]
+  s.test_files = Dir["test/**/*"].reject{|f| f[%r{^test/dummy/(tmp/|log/)}]}
 
   s.add_dependency 'rails', '~> 4.2'
   s.add_dependency 'mongoid', '~> 4.0'

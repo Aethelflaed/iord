@@ -126,9 +126,9 @@ module Iord
     end
 
     private
-    def formats(format, hash = {})
+    def formats(format, hsh = {})
       self.class.crud_response_formats.each do |callback|
-        callback.call(self, format, params[:action].to_sym, hash)
+        callback.call(self, format, params[:action].to_sym, hsh)
       end
     end
   end

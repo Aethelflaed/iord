@@ -1,3 +1,6 @@
+## 1.1.1
+* Using helpers instead of writing directly html
+
 ## 1.1.0
 * Defaults `unscoped` and `includes` for create_collection
 * Resource_attribute_names includes embedded documents, enabling search
