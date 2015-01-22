@@ -18,6 +18,5 @@ Gem::Specification.new do |s|
   s.add_dependency 'rails', '~> 4.2'
   s.add_dependency 'mongoid', '~> 4.0'
   s.add_dependency 'nested_form', '~> 0.3'
-  s.add_dependency 'hooks', '~> 0.3'
 end
 
