@@ -18,8 +18,9 @@ module Iord
       @iordh ||= OutputHelper.new(view_context)
     end
 
+    # Use for sort_if_enabled which requires the attribute name
     def field_attribute(attr)
-      return "id"           if attr == :_id
+      return 'id'           if attr == :_id
       # default, simply return name
       return attr           unless attr.is_a? Hash
       # else, Hash
@@ -34,7 +35,7 @@ module Iord
     def field_name(resource, attr = nil)
       attr = resource if attr.nil?
 
-      return "id"           if attr == :_id
+      return 'id'           if attr == :_id
       # default, simply return name
       return attr           unless attr.is_a? Hash
       # else, Hash
@@ -43,15 +44,10 @@ module Iord
       return attr[:array]   if attr.has_key? :array
       return attr[:value]   if attr.has_key? :value
 
-      if attr.has_key? :link
-        if attr[:link].respond_to? :call
-          return attr[:link].call(resource, attr)
-        else
-          return attr[:link]
-        end
-      end
+      link = attr[:link]
+      link = link.call(resource, attr) if link.respond_to? :call
 
-      attr.keys[0]
+      link || attr.keys[0]
     end
 
     def field_label(f, attr)
@@ -134,7 +130,7 @@ module Iord
 
       # complex value with Hash
       if attr.has_key? :array
-        iordh.display_array(resource.public_send(attr[:array]), attr[:attr][:attrs])
+        iordh.display_array(resource.public_send(attr[:array]), attr[:attrs])
       elsif attr.has_key? :object
         iordh.display(resource.public_send(attr[:object]), attr[:attrs])
       elsif attr.has_key? :value
@@ -147,8 +143,8 @@ module Iord
         iordh.image resource.public_send(*attr[:image]), attr[:params]
       elsif attr.has_key? :link
         label, url = attr[:label], attr[:url]
-        label = attr[:label].call(resource, attr) if attr[:label].respond_to? :call
-        url = attr[:url].call(resource, attr) if attr[:url].respond_to? :call
+        label = label.call(resource, attr) if label.respond_to? :call
+        url = url.call(resource, attr) if url.respond_to? :call
 
         iordh.link_to label, url, attr[:params]
       else
