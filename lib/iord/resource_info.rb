@@ -94,8 +94,10 @@ module Iord
       klass.relations.each do |name, relation|
         case relation.macro
         when :embeds_one, :embeds_many
-          embedded_attributes = build_resource_attribute_names(relation.class_name.constantize)
-          attribute_names += embedded_attributes.map{|attribute| "#{name}.#{attribute}"}
+          unless relation.cyclic? || klass.name == relation.class_name
+            embedded_attributes = build_resource_attribute_names(relation.class_name.constantize)
+            attribute_names += embedded_attributes.map{|attribute| "#{name}.#{attribute}"}
+          end
         end
       end
       attribute_names
