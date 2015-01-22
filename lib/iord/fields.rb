@@ -14,11 +14,9 @@ module Iord
       helper_method :iordh
     end
 
-    attr_writer :o
-    def o
-      @o ||= OutputHelper.new(view_context)
+    def iordh
+      @iordh ||= OutputHelper.new(view_context)
     end
-    alias_method :iordh, :o
 
     def field_attribute(attr)
       return "id"           if attr == :_id
@@ -63,12 +61,12 @@ module Iord
 
     def field_form(f, attr)
       if attr.is_a? Symbol
-        return o.input(f.label(attr), f.text_field(attr), f.object.errors.full_messages_for(attr))
+        return iordh.input(f.label(attr), f.text_field(attr), f.object.errors.full_messages_for(attr))
       elsif attr.is_a? Array
         label = f.label attr[1]
         field = f.public_send *attr
         errors = f.object.errors.full_messages_for(attr[1])
-        return o.input(label, field, errors)
+        return iordh.input(label, field, errors)
       elsif not attr.is_a? Hash
         raise ArgumentError, "Unrecognized attr: #{attr}"
       elsif attr.has_key? :fields
@@ -93,7 +91,7 @@ module Iord
 
       label = field_label(f, attr)
       errors = f.object.errors.full_messages_for(attr[:attr])
-      o.input(label, field, errors)
+      iordh.input(label, field, errors)
     end
 
     def field_form_object(f, attr)
@@ -109,14 +107,14 @@ module Iord
       end
 
       html = f.fields_for(attr[:attr]) do |ff|
-        o.fieldset(attr_name, attr[:fields], ff, predicate) do
+        iordh.fieldset(attr_name, attr[:fields], ff, predicate) do
           if multiple_items
-            o.link_to_remove(ff, attr_name)
+            iordh.link_to_remove(ff, attr_name)
           end
         end
       end
       if multiple_items
-        html += o.link_to_add(f, attr_name, attr[:attr])
+        html += iordh.link_to_add(f, attr_name, attr[:attr])
       end
       html.nil? ? String.new : html.html_safe
     end
@@ -136,9 +134,9 @@ module Iord
 
       # complex value with Hash
       if attr.has_key? :array
-        o.display_array(resource.public_send(attr[:array]), attr[:attr][:attrs])
+        iordh.display_array(resource.public_send(attr[:array]), attr[:attr][:attrs])
       elsif attr.has_key? :object
-        o.display(resource.public_send(attr[:object]), attr[:attrs])
+        iordh.display(resource.public_send(attr[:object]), attr[:attrs])
       elsif attr.has_key? :value
         if resource.respond_to? attr[:value]
           attr[:format].call(resource.public_send(attr[:value]))
@@ -146,13 +144,13 @@ module Iord
           attr[:format].call(resource, attr[:value])
         end
       elsif attr.has_key? :image
-        o.image resource.public_send(*attr[:image]), attr[:params]
+        iordh.image resource.public_send(*attr[:image]), attr[:params]
       elsif attr.has_key? :link
         label, url = attr[:label], attr[:url]
         label = attr[:label].call(resource, attr) if attr[:label].respond_to? :call
         url = attr[:url].call(resource, attr) if attr[:url].respond_to? :call
 
-        o.link_to label, url, attr[:params]
+        iordh.link_to label, url, attr[:params]
       else
         field_value(resource.public_send(attr.keys[0]), attr.values[0])
       end

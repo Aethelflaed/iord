@@ -18,7 +18,7 @@ module Iord
       iord_features << :json
     end
 
-    def o
+    def iordh
       if request.format.symbol == :json
         @json_output ||= ::Iord::JsonOutput.new(view_context)
       else
@@ -41,13 +41,13 @@ module Iord
     def json_index(hsh)
       attrs = json_index_attrs
       attrs.unshift(:id) unless attrs.include? :id
-      {json: o.display_array(@collection, attrs)}
+      {json: iordh.display_array(@collection, attrs)}
     end
 
     def json_show(hsh)
       attrs = json_show_attrs
       attrs.unshift(:id) unless attrs.include? :id
-      {json: o.display(@resource, attrs)}
+      {json: iordh.display(@resource, attrs)}
     end
 
     def json_create(hsh)
