@@ -19,6 +19,10 @@ module Iord
 
     def create_collection
       collection = resource_class.all
+      if default(:unscoped)
+        collection = collection.unscoped
+        collection = collection.where(deleted_at: nil) if defined?(Mongoid::Paranoia) && resource_class < Mongoid::Paranoia
+      end
       collection = collection.unscoped if default(:unscoped)
       collection.includes(*Array(default(:includes))) if default(:includes)
       collection

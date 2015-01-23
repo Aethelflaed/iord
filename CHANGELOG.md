@@ -1,3 +1,6 @@
+## 1.1.2
+* Fixed defaults `unscoped` showing delete elements with `Mongoid::Paranoia`
+
 ## 1.1.1
 * Using helpers instead of writing directly html
 
