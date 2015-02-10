@@ -75,6 +75,15 @@ module Iord
       return @search_term
     end
 
+    def term_type(klass, term)
+      term = term.split('.') if term.is_a?(String)
+      if term.count == 1
+        klass.fields[term[0]].type
+      else
+        term_type(klass.relations[term[0]].klass, term[1..-1])
+      end
+    end
+
     def search_value
       if @search_value.nil?
         return @search_value = nil if search_term.nil?
@@ -109,7 +118,8 @@ module Iord
           if search_value.empty?
             collection = collection.where(search_term.to_sym.in => [nil, ''])
           else
-            collection = collection.where(search_term => search_value)
+            type = term_type(resource_class, search_term)
+            collection = collection.where(search_term => type.evolve(search_value))
           end
         else
           collection = collection.where(search_term => {"$#{search_operator}" => search_value})

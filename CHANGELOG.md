@@ -1,3 +1,6 @@
+## 1.1.3
+* Fixed search not evolving correctly types for embedded relation criteria.
+
 ## 1.1.2
 * Fixed defaults `unscoped` showing delete elements with `Mongoid::Paranoia`
 
