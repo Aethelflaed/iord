@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
   s.test_files = Dir["test/**/*"].reject{|f| f[%r{^test/dummy/(tmp/|log/)}]}
 
   s.add_dependency 'rails', '~> 4.2'
-  s.add_dependency 'mongoid', '~> 4.0'
+  s.add_dependency 'mongoid', '>= 4.0'
   s.add_dependency 'nested_form', '~> 0.3'
 end
 

@@ -1,5 +1,6 @@
 require 'bundler/setup'
 require 'simplecov'
+require 'pry'
 SimpleCov.configure do
   add_filter '/test/'
 end
@@ -13,12 +14,11 @@ require 'rails/test_help'
 require 'factory_girl'
 require 'nested_form/view_helper'
 
-Mongoid::Sessions.default.use('iord_test').drop
-
 # FactoryGirl can't find definitions :/
 FactoryGirl.definition_file_paths = [File.expand_path('../factories', __FILE__)]
 FactoryGirl.find_definitions
 
+Mongo::Logger.logger = Rails.logger
 Rails.backtrace_cleaner.remove_silencers!
 
 ActiveSupport::TestCase.test_order = :random

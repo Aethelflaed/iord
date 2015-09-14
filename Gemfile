@@ -2,9 +2,6 @@ source "https://rubygems.org"
 
 gemspec
 
-gem 'mongoid', '~> 4.0'
-gem 'nested_form', '~> 0.3'
-
 gem 'pry-nav'
 gem 'simplecov', require: false
 
