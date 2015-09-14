@@ -18,7 +18,7 @@ module Iord
         page_div += "&nbsp;"
       end
 
-      (count / limit + 1).times do |i|
+      (count / limit + 1).ceil.times do |i|
         page_div += "&nbsp;" unless i == 0
         if (i * limit) == offset
           page_div += page(i)
