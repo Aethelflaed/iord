@@ -4,7 +4,7 @@ module Iord
       super File.expand_path(File.dirname(__FILE__) + '/../../app/views')
     end
 
-    def find_templates(name, prefix, partial, details)
+    def find_templates(name, prefix, partial, details, outside_app_allowed = false)
       super(name, 'iord', partial, details)
     end
   end
@@ -15,7 +15,7 @@ module Iord
       @prefix = prefix
     end
 
-    def find_templates(name, prefix, partial, details)
+    def find_templates(name, prefix, partial, details, outside_app_allowed = false)
       super(name, @prefix, partial, details)
     end
   end

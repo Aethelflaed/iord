@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    iord (1.2.1)
+    iord (1.2.2)
       mongoid (>= 4.0)
       nested_form (~> 0.3)
       rails (~> 4.2)
